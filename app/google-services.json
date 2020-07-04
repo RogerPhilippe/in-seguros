@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "976530230383",
+    "firebase_url": "https://in-seguros.firebaseio.com",
+    "project_id": "in-seguros",
+    "storage_bucket": "in-seguros.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976530230383:android:0144b55e57db791e4d519a",
+        "android_client_info": {
+          "package_name": "br.com.inseguros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976530230383-7k2j52me2ok5f6u52ut13otntd3h25ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9dTyly8J9zlZ_tyAS39xiAQSwXWoWy2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976530230383-7k2j52me2ok5f6u52ut13otntd3h25ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
