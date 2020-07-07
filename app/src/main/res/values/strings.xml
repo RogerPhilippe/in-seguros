@@ -1,9 +1,22 @@
 <resources>
     <string name="app_name">IN Seguros</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_settings">Configurações</string>
+    <string name="title_notifications">Notificações</string>
     <string name="welcome_label">Bem Vindo</string>
     <string name="anonymus_label">Anonymus</string>
     <string name="user_logo_description">User Logo</string>
+    <string name="full_name_edit_label">Nome Completo</string>
+    <string name="checked">checked</string>
+    <string name="unchecked">unchecked</string>
+    <string name="male_label">Masculino</string>
+    <string name="female_label">Feminino</string>
+    <string name="birth_label">Data de Nascimento</string>
+    <string name="cpf_label">CPF</string>
+    <string name="vehicle_licence_number_label">Número da CNH</string>
+    <string name="vehicle_licence_label">Tempo de habilitação</string>
+    <string name="vehicle_overnight_zip_label">CEP de pernoite do veículo</string>
+    <string name="cancelar_label">Cancelar</string>
+    <string name="salvar_label">Salvar</string>
+    <string name="error_msg_field_empty">Campo obrigatório</string>
 </resources>

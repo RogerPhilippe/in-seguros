@@ -1,6 +1,7 @@
 package br.com.inseguros
 
 import android.app.Application
+import br.com.inseguros.data.model.AppSession
 import br.com.inseguros.di.viewModelModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,6 +19,8 @@ class MainApplication : Application() {
                 listOf(viewModelModules)
             )
         }
+
+        AppSession.setMainMenuItems()
 
     }
 

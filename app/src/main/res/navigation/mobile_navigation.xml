@@ -9,17 +9,35 @@
         android:id="@+id/navigation_home"
         android:name="br.com.inseguros.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_historicFragment"
+            app:destination="@id/historicFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_quotesReceivedFragment"
+            app:destination="@id/quotesReceivedFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_messagesFragment"
+            app:destination="@id/messagesFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_quote_navigation"
+            app:destination="@id/quote_navigation" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="br.com.inseguros.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
+        android:id="@+id/historicFragment"
+        android:name="br.com.inseguros.ui.historic.HistoricFragment"
+        android:label="historic_fragment"
+        tools:layout="@layout/historic_fragment" />
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="br.com.inseguros.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/quotesReceivedFragment"
+        android:name="br.com.inseguros.ui.quotesreceived.QuotesReceivedFragment"
+        android:label="quotes_received_fragment"
+        tools:layout="@layout/quotes_received_fragment" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="br.com.inseguros.ui.messages.MessagesFragment"
+        android:label="messages_fragment"
+        tools:layout="@layout/messages_fragment" />
+    <include app:graph="@navigation/quote_navigation" />
 </navigation>
