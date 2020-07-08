@@ -14,9 +14,20 @@
     <string name="birth_label">Data de Nascimento</string>
     <string name="cpf_label">CPF</string>
     <string name="vehicle_licence_number_label">Número da CNH</string>
-    <string name="vehicle_licence_label">Tempo de habilitação</string>
+    <string name="vehicle_licence_label">Tempo de CNH (meses)</string>
     <string name="vehicle_overnight_zip_label">CEP de pernoite do veículo</string>
     <string name="cancelar_label">Cancelar</string>
     <string name="salvar_label">Salvar</string>
     <string name="error_msg_field_empty">Campo obrigatório</string>
+    <string name="civil_state_option_single">Solteiro</string>
+    <string name="civil_state_option_married">Casado</string>
+    <string name="request_label">Solicitar</string>
+    <string name="yes_btn_label">Sim</string>
+    <string name="no_btn_label">Não</string>
+    <string name="exit_confirmation_discard_changes">Deseja sair e descartar as alterações?</string>
+    <string name="select_option">Selecione uma opção</string>
+    <string name="vehicle_licence_time_calculator_dialog_title">Calculadora de meses</string>
+    <string name="apply_label">Aplicar</string>
+    <string name="year_hint">Ano(s)</string>
+    <string name="month_hint">Mês(es)</string>
 </resources>

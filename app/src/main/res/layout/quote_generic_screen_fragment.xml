@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.quotes.car.QuoteCarFragment">
+    tools:context=".ui.quotes.genericscreen.QuoteGenericScreenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/quotes_car_toolbar"
+            android:id="@+id/quotes_generic_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -28,7 +28,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/quotes_car_toolbar"
+            app:layout_constraintTop_toBottomOf="@id/quotes_generic_toolbar"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
@@ -44,13 +44,13 @@
                     android:gravity="center_vertical">
 
                     <ImageView
-                        android:id="@+id/quote_car_icon_iv"
+                        android:id="@+id/quote_generic_icon_iv"
                         android:layout_width="72dp"
                         android:layout_height="72dp"
                         app:srcCompat="@mipmap/ic_launcher" />
 
                     <TextView
-                        android:id="@+id/quote_car_description_tv"
+                        android:id="@+id/quote_generic_description_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -67,7 +67,7 @@
                     android:orientation="vertical">
 
                     <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/full_name_met"
+                        android:id="@+id/full_name_generic_met"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/full_name_edit_label"
@@ -77,17 +77,19 @@
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/cpf_met"
+                        android:id="@+id/cpf_generic_met"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/cpf_label"
+                        android:inputType="number"
+                        android:maxLength="14"
                         app:met_textColorHint="@color/colorPrimaryDark"
                         app:met_floatingLabel="highlight"
                         app:met_primaryColor="?colorAccent"
                         app:met_singleLineEllipsis="true" />
 
                     <RadioGroup
-                        android:id="@+id/quote_car_rg"
+                        android:id="@+id/quote_generic_rg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -96,7 +98,7 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/male_rb"
+                            android:id="@+id/male_generic_rb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -104,7 +106,7 @@
                             android:text="@string/male_label"/>
 
                         <RadioButton
-                            android:id="@+id/female_rb"
+                            android:id="@+id/female_generic_rb"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -112,46 +114,50 @@
 
                     </RadioGroup>
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/birth_met"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/birth_label"
-                        app:met_textColorHint="@color/colorPrimaryDark"
-                        app:met_floatingLabel="highlight"
-                        app:met_primaryColor="?colorAccent"
-                        app:met_singleLineEllipsis="true" />
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/birth_generic_iv"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_marginEnd="12dp"
+                            app:srcCompat="@drawable/ic_calendar_foreground"/>
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/birth_generic_met"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/birth_label"
+                            android:inputType="date"
+                            app:met_textColorHint="@color/colorPrimaryDark"
+                            app:met_floatingLabel="highlight"
+                            app:met_primaryColor="?colorAccent"
+                            android:layout_marginEnd="64dp"
+                            app:met_singleLineEllipsis="true" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:text="Estado Civil"/>
 
                     <Spinner
-                        android:id="@+id/civil_state_spn"
+                        android:id="@+id/civil_state_generic_spn"
                         android:layout_width="match_parent"
                         android:layout_height="38dp"/>
 
                     <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/vehicle_licence_number_met"
+                        android:id="@+id/vehicle_licence_number_generic_met"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/vehicle_licence_number_label"
-                        app:met_textColorHint="@color/colorPrimaryDark"
-                        app:met_floatingLabel="highlight"
-                        app:met_primaryColor="?colorAccent"
-                        app:met_singleLineEllipsis="true" />
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/vehicle_licence_time_met"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/vehicle_licence_label"
-                        app:met_textColorHint="@color/colorPrimaryDark"
-                        app:met_floatingLabel="highlight"
-                        app:met_primaryColor="?colorAccent"
-                        app:met_singleLineEllipsis="true" />
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/vehicle_overnight_zip_met"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/vehicle_overnight_zip_label"
+                        android:inputType="number"
                         app:met_textColorHint="@color/colorPrimaryDark"
                         app:met_floatingLabel="highlight"
                         app:met_primaryColor="?colorAccent"
@@ -160,13 +166,50 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="16dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/vehicle_licence_time_iv"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_marginEnd="12dp"
+                            app:srcCompat="@drawable/ic_calculate_foreground"/>
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/vehicle_licence_time_generic_met"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/vehicle_licence_label"
+                            android:inputType="number"
+                            app:met_textColorHint="@color/colorPrimaryDark"
+                            app:met_floatingLabel="highlight"
+                            app:met_primaryColor="?colorAccent"
+                            android:layout_marginEnd="64dp"
+                            app:met_singleLineEllipsis="true" />
+
+                    </LinearLayout>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/vehicle_overnight_zip_generic_met"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/vehicle_overnight_zip_label"
+                        android:inputType="number"
+                        android:maxLength="9"
+                        app:met_textColorHint="@color/colorPrimaryDark"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/cancel_btn"
+                            android:id="@+id/cancel_generic_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -175,14 +218,14 @@
                             android:text="@string/cancelar_label"/>
 
                         <Button
-                            android:id="@+id/save_btn"
+                            android:id="@+id/save_generic_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_marginStart="8dp"
                             android:padding="8dp"
                             style="@style/button"
-                            android:text="@string/salvar_label"/>
+                            android:text="@string/request_label"/>
 
                     </LinearLayout>
 

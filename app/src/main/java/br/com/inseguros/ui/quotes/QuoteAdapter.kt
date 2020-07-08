@@ -29,10 +29,10 @@ class QuoteAdapter(
             holder.itemView.setOnClickListener {
                 when(this.id) {
                     "main_menu_id_item_1" -> parent.navControllerNavigateTo(
-                        R.id.action_quoteFragment_to_quoteCarFragment, this
+                        R.id.action_quoteFragment_to_quoteGenericScreenFragment, this
                     )
                     "main_menu_id_item_2" -> parent.navControllerNavigateTo(
-                        R.id.action_quoteFragment_to_quoteMotorcycleFragment, this
+                        R.id.action_quoteFragment_to_quoteGenericScreenFragment, this
                     )
                     "main_menu_id_item_3" -> parent.navControllerNavigateTo(
                         R.id.action_quoteFragment_to_quoteHouseFragment, this

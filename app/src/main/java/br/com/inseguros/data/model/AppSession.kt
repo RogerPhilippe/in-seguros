@@ -29,14 +29,14 @@ object AppSession {
 
         val items = mutableListOf<MainMenu>()
         var mustFill = true
-        var cont = 1
+        var count = 1
         do {
-            val currentID = "main_menu_id_item_$cont"
-            val currentTitle = firebaseRConfig.getString("main_menu_title_item_$cont")
-            val currentIcon = firebaseRConfig.getString("main_menu_icon_item_$cont")
+            val currentID = "main_menu_id_item_$count"
+            val currentTitle = firebaseRConfig.getString("main_menu_title_item_$count")
+            val currentIcon = firebaseRConfig.getString("main_menu_icon_item_$count")
             if (currentTitle.isNotEmpty() && currentIcon.isNotEmpty()) {
                 items.add(MainMenu(currentID, currentTitle, currentIcon))
-                cont ++
+                count ++
             } else {
                 mustFill = false
             }
@@ -53,15 +53,16 @@ object AppSession {
 
         val items = mutableListOf<MainSubMenu>()
         var mustFill = true
-        var cont = 1
+        var count = 1
         do {
-            val currentID = "main_menu_id_item_$cont"
-            val currentTitle = firebaseRConfig.getString("main_sub_menu_title_item_$cont")
-            val currentSubTitle = firebaseRConfig.getString("main_sub_menu_sub_title_item_$cont")
-            val currentIcon = firebaseRConfig.getString("main_sub_menu_icon_item_$cont")
+            val currentID = "main_menu_id_item_$count"
+            val currentTitle = firebaseRConfig.getString("main_sub_menu_title_item_$count")
+            val currentSubTitle = firebaseRConfig.getString("main_sub_menu_sub_title_item_$count")
+            val currentDescription = firebaseRConfig.getString("main_sub_menu_description_item_$count")
+            val currentIcon = firebaseRConfig.getString("main_sub_menu_icon_item_$count")
             if (currentTitle.isNotEmpty() && currentIcon.isNotEmpty()) {
-                items.add(MainSubMenu(currentID, currentTitle, currentSubTitle, currentIcon))
-                cont ++
+                items.add(MainSubMenu(currentID, currentTitle, currentSubTitle, currentDescription, currentIcon))
+                count ++
             } else {
                 mustFill = false
             }

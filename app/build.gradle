@@ -55,7 +55,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // Firebase
-
     implementation 'com.google.firebase:firebase-core:17.4.3'
     implementation 'com.google.firebase:firebase-config-ktx:19.1.4'
     implementation 'com.google.firebase:firebase-analytics-ktx:17.4.3'
@@ -78,6 +77,10 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:2.0.1"
     implementation "org.koin:koin-android:2.0.1"
 
+    // Material EditText
     implementation 'com.rengwuxian.materialedittext:library:2.0.3'
+
+    // Brazil formats
+    implementation 'br.com.concrete:canarinho:2.0.1'
 
 }

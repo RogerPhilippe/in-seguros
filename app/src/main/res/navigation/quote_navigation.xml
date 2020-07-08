@@ -11,28 +11,15 @@
         android:label="quote_fragment"
         tools:layout="@layout/quote_fragment" >
         <action
-            android:id="@+id/action_quoteFragment_to_quoteCarFragment"
-            app:destination="@id/quoteCarFragment" />
-        <action
-            android:id="@+id/action_quoteFragment_to_quoteMotorcycleFragment"
-            app:destination="@id/quoteMotorcycleFragment" />
-        <action
             android:id="@+id/action_quoteFragment_to_quoteHouseFragment"
             app:destination="@id/quoteHouseFragment" />
         <action
             android:id="@+id/action_quoteFragment_to_quoteLifeFragment"
             app:destination="@id/quoteLifeFragment" />
+        <action
+            android:id="@+id/action_quoteFragment_to_quoteGenericScreenFragment"
+            app:destination="@id/quoteGenericScreenFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/quoteCarFragment"
-        android:name="br.com.inseguros.ui.quotes.car.QuoteCarFragment"
-        android:label="quote_car_fragment"
-        tools:layout="@layout/quote_car_fragment" />
-    <fragment
-        android:id="@+id/quoteMotorcycleFragment"
-        android:name="br.com.inseguros.ui.quotes.motorcycle.QuoteMotorcycleFragment"
-        android:label="QuoteMotorcycleFragment"
-        tools:layout="@layout/quote_motorcycle_fragment"/>
     <fragment
         android:id="@+id/quoteHouseFragment"
         android:name="br.com.inseguros.ui.quotes.house.QuoteHouseFragment"
@@ -43,4 +30,9 @@
         android:name="br.com.inseguros.ui.quotes.life.QuoteLifeFragment"
         android:label="QuoteLifeFragment"
         tools:layout="@layout/quote_life_fragment"/>
+    <fragment
+        android:id="@+id/quoteGenericScreenFragment"
+        android:name="br.com.inseguros.ui.quotes.genericscreen.QuoteGenericScreenFragment"
+        android:label="QuoteGenericScreenFragment"
+        tools:layout="@layout/quote_generic_screen_fragment"/>
 </navigation>
