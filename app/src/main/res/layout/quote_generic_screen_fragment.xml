@@ -141,16 +141,15 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimary"
-                        android:text="Estado Civil"/>
-
-                    <Spinner
+                    <fr.ganfra.materialspinner.MaterialSpinner
                         android:id="@+id/civil_state_generic_spn"
                         android:layout_width="match_parent"
-                        android:layout_height="38dp"/>
+                        android:layout_height="wrap_content"
+                        app:ms_hint="Estado Civil"
+                        app:ms_hintColor="@color/colorPrimaryDark"
+                        app:ms_floatingLabelColor="@color/colorAccent"
+                        app:ms_floatingLabelText="Estado Civil"
+                        app:ms_multiline="false"/>
 
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/vehicle_licence_number_generic_met"

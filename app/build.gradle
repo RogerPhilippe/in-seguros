@@ -80,6 +80,9 @@ dependencies {
     // Material EditText
     implementation 'com.rengwuxian.materialedittext:library:2.0.3'
 
+    // Material spinner
+    implementation 'com.github.ganfra:material-spinner:2.0.0'
+
     // Brazil formats
     implementation 'br.com.concrete:canarinho:2.0.1'
 

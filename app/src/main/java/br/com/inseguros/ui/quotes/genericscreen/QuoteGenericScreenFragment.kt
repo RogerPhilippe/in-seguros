@@ -30,7 +30,6 @@ import java.util.*
 class QuoteGenericScreenFragment : BaseFragment() {
 
     override val layout = R.layout.quote_generic_screen_fragment
-    private lateinit var genreRadioBox: String
     private lateinit var languages: Array<String>
     private lateinit var binding: QuoteGenericScreenFragmentBinding
     private lateinit var navController: NavController
@@ -54,7 +53,8 @@ class QuoteGenericScreenFragment : BaseFragment() {
         binding.quoteGenericDescriptionTv.text = mainSubMenu.description
 
         languages = arrayOf(getString(R.string.civil_state_option_single), getString(R.string.civil_state_option_married))
-        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, languages)
+        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, languages)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.civilStateGenericSpn.adapter = arrayAdapter
 
         setupListeners()
@@ -67,18 +67,6 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
         binding.quotesGenericToolbar.setNavigationOnClickListener {
             this.popBackStack()
-        }
-
-        binding.civilStateGenericSpn.onItemSelectedListener  = object : AdapterView.OnItemSelectedListener {
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                Toast.makeText(requireContext(), getString(R.string.select_option), Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                genreRadioBox = languages[position]
-            }
-
         }
 
         binding.birthGenericIv.setOnClickListener { makeDataPickerDialog() }
@@ -95,6 +83,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
                 R.id.male_generic_rb -> { Toast.makeText(requireContext(), "Masculino", Toast.LENGTH_SHORT).show() }
                 R.id.female_generic_rb -> { Toast.makeText(requireContext(), "Feminino", Toast.LENGTH_SHORT).show() }
             }
+            Toast.makeText(requireContext(), binding.civilStateGenericSpn.selectedItem.toString(), Toast.LENGTH_SHORT).show()
             validateFields()
             validateCPF()
         }
