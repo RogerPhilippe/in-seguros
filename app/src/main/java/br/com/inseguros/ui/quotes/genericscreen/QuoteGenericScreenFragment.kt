@@ -2,27 +2,22 @@ package br.com.inseguros.ui.quotes.genericscreen
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
-import android.view.Window
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.concrete.canarinho.validator.Validador
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
 import br.com.inseguros.R
+import br.com.inseguros.data.model.DatePickerModel
 import br.com.inseguros.data.model.MainSubMenu
 import br.com.inseguros.databinding.QuoteGenericScreenFragmentBinding
 import br.com.inseguros.ui.BaseFragment
-import br.com.inseguros.ui.quotes.genericscreen.utils.VehicleLicenceTimeDialogYearTextChanged
 import br.com.inseguros.utils.DialogFragmentUtil
-import br.com.inseguros.utils.makeShortToast
 import br.com.inseguros.utils.validMaterialEditTextFilled
 import com.rengwuxian.materialedittext.MaterialEditText
 import java.util.*
@@ -33,10 +28,8 @@ class QuoteGenericScreenFragment : BaseFragment() {
     private lateinit var languages: Array<String>
     private lateinit var binding: QuoteGenericScreenFragmentBinding
     private lateinit var navController: NavController
-    private lateinit var monthMed: MaterialEditText
-    private var mYear = 0
-    private var mMonth = 0
-    private var mDay = 0
+    private val bornDatePickerModel = DatePickerModel()
+    private val licenceDatePickerModel = DatePickerModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -59,20 +52,26 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
         setupListeners()
         setupFieldsFormat()
-        fillDateVariables()
 
     }
 
     private fun setupListeners() {
 
+        //         this.bornDatePickerModel = DatePickerModel(year, month, day)
+        //        this.licenceDatePickerModel = DatePickerModel(year, month, day)
+
         binding.quotesGenericToolbar.setNavigationOnClickListener {
             this.popBackStack()
         }
 
-        binding.birthGenericIv.setOnClickListener { makeDataPickerDialog() }
+        binding.birthGenericIv.setOnClickListener {
+            makeDataPickerDialog(binding.birthGenericMet, this.bornDatePickerModel)
+        }
 
         // vehicle_licence_time_iv
-        binding.vehicleLicenceTimeIv.setOnClickListener { makeMonthCalculator() }
+        binding.vehicleLicenceTimeIv.setOnClickListener {
+            makeDataPickerDialog(binding.vehicleLicenceTimeGenericMet, this.licenceDatePickerModel)
+        }
 
         binding.cancelGenericBtn.setOnClickListener {
             confirmCancel()
@@ -100,48 +99,31 @@ class QuoteGenericScreenFragment : BaseFragment() {
             .addTextChangedListener(MascaraNumericaTextWatcher("#####-###"))
         // Data
         binding.birthGenericMet.addTextChangedListener(MascaraNumericaTextWatcher("##/##/####"))
-    }
-
-    private fun fillDateVariables() {
-
-        val c = Calendar.getInstance()
-        mYear = c.get(Calendar.YEAR)
-        mMonth = c.get(Calendar.MONTH)
-        mDay = c.get(Calendar.DAY_OF_MONTH)
+        binding.vehicleLicenceTimeGenericMet.addTextChangedListener(MascaraNumericaTextWatcher("##/##/####"))
     }
 
     @SuppressLint("SetTextI18n")
-    private fun makeDataPickerDialog() {
+    private fun makeDataPickerDialog(met: MaterialEditText, datePickerModel: DatePickerModel) {
 
-        val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+        val c = Calendar.getInstance()
+        var year = c.get(Calendar.YEAR)
+        var month = c.get(Calendar.MONTH)
+        var day = c.get(Calendar.DAY_OF_MONTH)
+
+        val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, pYear, pMonth, pDayOfMonth ->
             // Display Selected date in TextView
-            val dayStr = if (dayOfMonth < 10) "0$dayOfMonth" else dayOfMonth.toString()
-            val monthStr = if (month+1 < 10) "0${month+1}" else (month+1).toString()
-            binding.birthGenericMet.setText("$dayStr$monthStr$year")
-            mYear = year
-            mMonth = month
-            mDay = dayOfMonth
-        }, mYear, mMonth, mDay)
+            val dayStr = if (pDayOfMonth < 10) "0$pDayOfMonth" else pDayOfMonth.toString()
+            val monthStr = if (pMonth+1 < 10) "0${pMonth+1}" else (pMonth+1).toString()
+            met.setText("$dayStr$monthStr$pYear")
+            datePickerModel.mYear = pYear
+            datePickerModel.mMonth = pMonth
+            datePickerModel.mDay = pDayOfMonth
+            year = pYear
+            month = pMonth
+            day = pDayOfMonth
+        }, year, month, day)
         dpd.show()
 
-    }
-
-    private fun makeMonthCalculator() {
-
-        val dialog = Dialog(requireContext())
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.vehicle_licence_time_calculator_dialog)
-        val yearMed = dialog.findViewById<MaterialEditText>(R.id.vehicle_licence_time_dialog_year_met)
-        monthMed = dialog.findViewById(R.id.vehicle_licence_time_dialog_month_met)
-        val applyBtn = dialog.findViewById<Button>(R.id.vehicle_licence_time_dialog_apply_btn)
-        yearMed.addTextChangedListener(VehicleLicenceTimeDialogYearTextChanged(monthMed))
-        applyBtn.setOnClickListener {
-            if (monthMed.text.isNotEmpty() && monthMed.text.toString().toInt() > 0) {
-                binding.vehicleLicenceTimeGenericMet.text = monthMed.text
-                dialog.dismiss()
-            } else { "Preencha o ano.".makeShortToast(requireContext()) }
-        }
-        dialog.show()
     }
 
     private fun validateFields(): Boolean {

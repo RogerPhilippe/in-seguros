@@ -14,7 +14,7 @@
     <string name="birth_label">Data de Nascimento</string>
     <string name="cpf_label">CPF</string>
     <string name="vehicle_licence_number_label">Número da CNH</string>
-    <string name="vehicle_licence_label">Tempo de CNH (meses)</string>
+    <string name="vehicle_licence_label">1° Habilitação</string>
     <string name="vehicle_overnight_zip_label">CEP de pernoite do veículo</string>
     <string name="cancelar_label">Cancelar</string>
     <string name="salvar_label">Salvar</string>
