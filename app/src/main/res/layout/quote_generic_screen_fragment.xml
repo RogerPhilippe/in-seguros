@@ -38,6 +38,8 @@
                 android:padding="8dp">
 
                 <LinearLayout
+                    android:id="@+id/headerContainer"
+                    android:visibility="visible"
                     android:layout_margin="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -187,6 +189,59 @@
                             app:met_singleLineEllipsis="true" />
 
                     </LinearLayout>
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/vehicle_brand_generic_spn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ms_hint="Marca do Veículo"
+                        app:ms_hintColor="@color/colorPrimaryDark"
+                        app:ms_floatingLabelText="Marca do Veículo"
+                        app:ms_multiline="false"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/vehicle_model_name_generic_met"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/vehicle_model_label"
+                        app:met_textColorHint="@color/colorPrimaryDark"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/vehicle_yea_manufacturer_met"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/year_manufacture_label"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        app:met_textColorHint="@color/colorPrimaryDark"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/vehicle_model_year_met"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/vehicle_year_model_label"
+                        android:inputType="number"
+                        android:maxLength="4"
+                        app:met_textColorHint="@color/colorPrimaryDark"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/vehicle_register_num_met"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/vehicle_register_num_label"
+                        app:met_textColorHint="@color/colorPrimaryDark"
+                        app:met_floatingLabel="highlight"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:id="@+id/vehicle_overnight_zip_generic_met"

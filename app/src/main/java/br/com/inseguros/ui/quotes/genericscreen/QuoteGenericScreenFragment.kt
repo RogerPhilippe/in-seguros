@@ -7,20 +7,21 @@ import android.os.Bundle
 import android.util.Base64
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.concrete.canarinho.validator.Validador
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
 import br.com.inseguros.R
-import br.com.inseguros.data.model.DatePickerModel
-import br.com.inseguros.data.model.MainSubMenu
+import br.com.inseguros.data.model.*
 import br.com.inseguros.databinding.QuoteGenericScreenFragmentBinding
+import br.com.inseguros.events.RefreshHistoricListEvent
 import br.com.inseguros.ui.BaseFragment
-import br.com.inseguros.utils.DialogFragmentUtil
-import br.com.inseguros.utils.validMaterialEditTextFilled
+import br.com.inseguros.utils.*
 import com.rengwuxian.materialedittext.MaterialEditText
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
+import org.greenrobot.eventbus.EventBus
 
 class QuoteGenericScreenFragment : BaseFragment() {
 
@@ -28,8 +29,11 @@ class QuoteGenericScreenFragment : BaseFragment() {
     private lateinit var languages: Array<String>
     private lateinit var binding: QuoteGenericScreenFragmentBinding
     private lateinit var navController: NavController
-    private val bornDatePickerModel = DatePickerModel()
-    private val licenceDatePickerModel = DatePickerModel()
+    private var vehicleType: String? = null
+    private var editMode = false
+    private lateinit var quoteVehicleItemToEdit: QuoteVehicle
+    private lateinit var brandsArrayAdapter: ArrayAdapter<String>
+    private val viewModel: QuoteGenericScreenViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,37 +44,71 @@ class QuoteGenericScreenFragment : BaseFragment() {
         val mainSubMenu = arguments?.get("main_sub_menu") as MainSubMenu
         binding.quotesGenericToolbar.title = mainSubMenu.title
 
-        val decodedString = Base64.decode(mainSubMenu.menuIcon, Base64.DEFAULT)
-        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
-        binding.quoteGenericIconIv.setImageBitmap(decodedByte)
-        binding.quoteGenericDescriptionTv.text = mainSubMenu.description
+        val quoteItem = arguments?.get("quote_vehicle") as QuoteVehicle?
+        editMode = quoteItem != null
+
+        if (editMode) {
+            binding.saveGenericBtn.text = getString(R.string.update_label)
+            quoteVehicleItemToEdit = quoteItem!!
+            binding.headerContainer.visibility = View.GONE
+            vehicleType = quoteItem.vehicleType
+        }
+
+        if (mainSubMenu.menuIcon.isNotEmpty()) {
+            val decodedString = Base64.decode(mainSubMenu.menuIcon, Base64.DEFAULT)
+            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+            binding.quoteGenericIconIv.setImageBitmap(decodedByte)
+        }
+        if (mainSubMenu.description.isNotEmpty())
+            binding.quoteGenericDescriptionTv.text = mainSubMenu.description
 
         languages = arrayOf(getString(R.string.civil_state_option_single), getString(R.string.civil_state_option_married))
         val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, languages)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.civilStateGenericSpn.adapter = arrayAdapter
 
+        if (vehicleType == null) {
+            vehicleType = when {
+                mainSubMenu.title.contains(VehicleTypeEnum.CAR.value) -> VehicleTypeEnum.CAR.value
+                mainSubMenu.title.contains(VehicleTypeEnum.MOTORCYCLE.value) -> VehicleTypeEnum.MOTORCYCLE.value
+                else -> "UNKNOWN"
+            }
+        }
+
+        // Temporary vehicle brand spinner fill
+        val vehicleBrands = when(vehicleType) {
+            VehicleTypeEnum.CAR.value ->
+                arrayListOf("GM Chevrolet", "Ford", "Fiat", "Mercedes", "BMW")
+            VehicleTypeEnum.MOTORCYCLE.value ->
+                arrayListOf("Yamaha", "Honda", "Harley-Davidson", "Kawazaki", "BMW")
+            else -> arrayListOf()
+        }
+
+        brandsArrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, vehicleBrands)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.vehicleBrandGenericSpn.adapter = brandsArrayAdapter
+
         setupListeners()
         setupFieldsFormat()
+        setupObservers()
+
+        if (editMode)
+            this.fillFieldsInEditMode()
 
     }
 
     private fun setupListeners() {
-
-        //         this.bornDatePickerModel = DatePickerModel(year, month, day)
-        //        this.licenceDatePickerModel = DatePickerModel(year, month, day)
 
         binding.quotesGenericToolbar.setNavigationOnClickListener {
             this.popBackStack()
         }
 
         binding.birthGenericIv.setOnClickListener {
-            makeDataPickerDialog(binding.birthGenericMet, this.bornDatePickerModel)
+            makeDataPickerDialog(binding.birthGenericMet)
         }
 
-        // vehicle_licence_time_iv
         binding.vehicleLicenceTimeIv.setOnClickListener {
-            makeDataPickerDialog(binding.vehicleLicenceTimeGenericMet, this.licenceDatePickerModel)
+            makeDataPickerDialog(binding.vehicleLicenceTimeGenericMet)
         }
 
         binding.cancelGenericBtn.setOnClickListener {
@@ -78,15 +116,92 @@ class QuoteGenericScreenFragment : BaseFragment() {
         }
 
         binding.saveGenericBtn.setOnClickListener {
-            when(binding.quoteGenericRg.checkedRadioButtonId) {
-                R.id.male_generic_rb -> { Toast.makeText(requireContext(), "Masculino", Toast.LENGTH_SHORT).show() }
-                R.id.female_generic_rb -> { Toast.makeText(requireContext(), "Feminino", Toast.LENGTH_SHORT).show() }
-            }
-            Toast.makeText(requireContext(), binding.civilStateGenericSpn.selectedItem.toString(), Toast.LENGTH_SHORT).show()
-            validateFields()
-            validateCPF()
+            persistRegister()
         }
 
+    }
+
+    private fun persistRegister() {
+
+        val genreChar = when(binding.quoteGenericRg.checkedRadioButtonId) {
+            R.id.male_generic_rb -> 'M'
+            R.id.female_generic_rb -> 'F'
+            else -> ' '
+        }
+        val civilState = binding.civilStateGenericSpn.selectedItem?.toString()
+        val vehicleBrand = binding.vehicleBrandGenericSpn.selectedItem?.toString()
+        if (genreChar == ' ') {
+            "Selecione o genero".makeErrorShortToast(requireContext())
+        } else if (civilState.isNullOrEmpty()) {
+            "Selecione o estado civíl".makeErrorShortToast(requireContext())
+        } else if (vehicleBrand.isNullOrEmpty()) {
+            "Selecione a marca do veículo".makeErrorShortToast(requireContext())
+        } else if (!validateFields()) {
+            "Preencha todos os campos obrigatórios".makeErrorShortToast(requireContext())
+        } else if (!validateCPF()) {
+            "CPF inválido".makeErrorShortToast(requireContext())
+        } else {
+
+            viewModel.getCurrentQuoteVehicleLiveData().value.apply {
+                this?.id = if (editMode) quoteVehicleItemToEdit.id else 0L
+                this?.fullName = binding.fullNameGenericMet.text.toString()
+                this?.cpf = binding.cpfGenericMet.text.toString()
+                this?.birthDate = convertDateToLong(binding.birthGenericMet.text.toString())
+                this?.genre = genreChar
+                this?.civilState = civilState
+                this?.vehicleType = vehicleType!!
+                this?.vehicleBrand = vehicleBrand
+                this?.vehicleModel = binding.vehicleModelNameGenericMet.text.toString()
+                this?.vehicleYearManufacture = binding.vehicleYeaManufacturerMet.text.toString()
+                this?.vehicleModelYear = binding.vehicleModelYearMet.text.toString()
+                this?.vehicleLicenceNumber = binding.vehicleLicenceNumberGenericMet.text.toString().toLong()
+                this?.vehicleLicenceTime = convertDateToLong(binding.vehicleLicenceTimeGenericMet.text.toString())
+                this?.overnightCEP = binding.vehicleOvernightZipGenericMet.text.toString()
+                this?.quoteDate = Calendar.getInstance().timeInMillis
+                this?.quoteStatus = QuoteTypeEnum.UNDER_ANALYSIS.value
+                this?.vehicleRegisterNum = binding.vehicleRegisterNumMet.text.toString()
+                this?.status = true
+            }
+
+            viewModel.insertQuoteVehicle()
+
+        }
+    }
+
+    private fun fillFieldsInEditMode() {
+
+        with(quoteVehicleItemToEdit) {
+            binding.fullNameGenericMet.setText(fullName)
+            binding.cpfGenericMet.setText(cpf)
+            binding.birthGenericMet.setText(convertDateToString(Date(birthDate)))
+            setRadioBox(genre)
+            setCivilStateSpn(civilState)
+            binding.vehicleModelNameGenericMet.setText(vehicleModel)
+            binding.vehicleYeaManufacturerMet.setText(vehicleYearManufacture)
+            binding.vehicleModelYearMet.setText(vehicleModelYear)
+            binding.vehicleLicenceNumberGenericMet.setText(vehicleLicenceNumber.toString())
+            binding.vehicleLicenceTimeGenericMet.setText(convertDateToString(Date(vehicleLicenceTime)))
+            binding.vehicleOvernightZipGenericMet.setText(overnightCEP)
+            binding.vehicleRegisterNumMet.setText(vehicleRegisterNum)
+
+            val spinnerPosition = brandsArrayAdapter.getPosition(vehicleBrand)
+            binding.vehicleBrandGenericSpn.setSelection(spinnerPosition+1)
+        }
+
+    }
+
+    private fun setRadioBox(genre: Char) {
+        when(genre) {
+            'M' -> binding.maleGenericRb.isChecked = true
+            'F' -> binding.femaleGenericRb.isChecked = true
+        }
+    }
+
+    private fun setCivilStateSpn(civilState: String) {
+        when(civilState) {
+            getString(R.string.civil_state_option_single) -> { binding.civilStateGenericSpn.setSelection(1) }
+            getString(R.string.civil_state_option_married) -> { binding.civilStateGenericSpn.setSelection(2) }
+        }
     }
 
     private fun setupFieldsFormat() {
@@ -102,8 +217,26 @@ class QuoteGenericScreenFragment : BaseFragment() {
         binding.vehicleLicenceTimeGenericMet.addTextChangedListener(MascaraNumericaTextWatcher("##/##/####"))
     }
 
+    private fun setupObservers() {
+
+        viewModel.getCurrentSaveStatus().observe(viewLifecycleOwner, object : Observer<SaveStatusEnum>{
+            override fun onChanged(t: SaveStatusEnum?) {
+                if (t == SaveStatusEnum.SUCCESS) {
+                    "Salvo".makeShortToast(requireContext())
+                    viewModel.getCurrentSaveStatus().removeObserver(this)
+                    if (editMode)
+                        EventBus.getDefault().post(RefreshHistoricListEvent())
+                    popBackStack()
+                } else {
+                    "Erro ao tentar Salvar".makeErrorShortToast(requireContext())
+                }
+            }
+
+        })
+    }
+
     @SuppressLint("SetTextI18n")
-    private fun makeDataPickerDialog(met: MaterialEditText, datePickerModel: DatePickerModel) {
+    private fun makeDataPickerDialog(met: MaterialEditText) {
 
         val c = Calendar.getInstance()
         var year = c.get(Calendar.YEAR)
@@ -115,9 +248,6 @@ class QuoteGenericScreenFragment : BaseFragment() {
             val dayStr = if (pDayOfMonth < 10) "0$pDayOfMonth" else pDayOfMonth.toString()
             val monthStr = if (pMonth+1 < 10) "0${pMonth+1}" else (pMonth+1).toString()
             met.setText("$dayStr$monthStr$pYear")
-            datePickerModel.mYear = pYear
-            datePickerModel.mMonth = pMonth
-            datePickerModel.mDay = pDayOfMonth
             year = pYear
             month = pMonth
             day = pDayOfMonth
@@ -139,6 +269,14 @@ class QuoteGenericScreenFragment : BaseFragment() {
         if (!validMaterialEditTextFilled(binding.vehicleLicenceNumberGenericMet, requireContext()))
             errors.add(true)
         if (!validMaterialEditTextFilled(binding.vehicleLicenceTimeGenericMet, requireContext()))
+            errors.add(true)
+        if (!validMaterialEditTextFilled(binding.vehicleModelNameGenericMet, requireContext()))
+            errors.add(true)
+        if (!validMaterialEditTextFilled(binding.vehicleYeaManufacturerMet, requireContext()))
+            errors.add(true)
+        if (!validMaterialEditTextFilled(binding.vehicleModelYearMet, requireContext()))
+            errors.add(true)
+        if (!validMaterialEditTextFilled(binding.vehicleRegisterNumMet, requireContext()))
             errors.add(true)
         if (!validMaterialEditTextFilled(binding.vehicleOvernightZipGenericMet, requireContext()))
             errors.add(true)
@@ -174,6 +312,12 @@ class QuoteGenericScreenFragment : BaseFragment() {
         if (binding.vehicleLicenceNumberGenericMet.text.isNotEmpty())
             filledFields.add(true)
         if (binding.vehicleLicenceTimeGenericMet.text.isNotEmpty())
+            filledFields.add(true)
+        if (binding.vehicleModelYearMet.text.isNotEmpty())
+            filledFields.add(true)
+        if (binding.vehicleYeaManufacturerMet.text.isNotEmpty())
+            filledFields.add(true)
+        if (binding.vehicleRegisterNumMet.text.isNullOrEmpty())
             filledFields.add(true)
         if (binding.vehicleOvernightZipGenericMet.text.isNotEmpty())
             filledFields.add(true)

@@ -31,7 +31,7 @@ class MainMenuAdapter(
             holder.itemView.setOnClickListener {
                 when(this.id) {
                     "main_menu_id_item_1" -> parent.navControllerNavigateTo(
-                        R.id.action_navigation_home_to_quote_navigation, this.description
+                        R.id.action_navigation_home_to_quoteFragment, this.description
                     )
                     "main_menu_id_item_2" -> parent.navControllerNavigateTo(
                         R.id.action_navigation_home_to_historicFragment, this.description

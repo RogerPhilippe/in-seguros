@@ -2,6 +2,9 @@ package br.com.inseguros
 
 import android.app.Application
 import br.com.inseguros.data.model.AppSession
+import br.com.inseguros.di.daoModule
+import br.com.inseguros.di.dbModule
+import br.com.inseguros.di.repositoryModule
 import br.com.inseguros.di.viewModelModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,7 +19,7 @@ class MainApplication : Application() {
             androidLogger()
             androidContext(this@MainApplication)
             modules(
-                listOf(viewModelModules)
+                listOf(viewModelModules, dbModule, daoModule, repositoryModule)
             )
         }
 

@@ -30,4 +30,21 @@
     <string name="apply_label">Aplicar</string>
     <string name="year_hint">Ano(s)</string>
     <string name="month_hint">Mês(es)</string>
+    <string name="year_manufacture_label">Ano de Fabricação</string>
+    <string name="vehicle_year_model_label">Ano do Modelo</string>
+    <string name="vehicle_model_label">Modelo do Veículo</string>
+    <string name="vehicle_register_label">Placa:</string>
+    <string name="vehicle_register_example_label">ABC01A0</string>
+    <string name="quote_status_label">Status:</string>
+    <string name="quote_status_example_label">Em analise</string>
+    <string name="data_edit_label">Editar Dados</string>
+    <string name="cancel_label">Cancelar</string>
+    <string name="under_analysis_quote">Em Analise</string>
+    <string name="vehicle_register_num_label">Placa</string>
+    <string name="canceled_quote_status_label">Cancelada</string>
+    <string name="approved_quote_status_label">Aprovada</string>
+    <string name="finished_quote_status_label">Finalizada</string>
+    <string name="undo_label">Desfazer</string>
+    <string name="item_removed_label">Item removido</string>
+    <string name="update_label">Atualizar</string>
 </resources>
