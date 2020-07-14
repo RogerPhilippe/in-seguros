@@ -7,15 +7,15 @@ import br.com.inseguros.data.model.QuoteVehicle
 interface QuoteVehicleDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item: QuoteVehicle): Long
+    suspend fun insert(item: QuoteVehicle): Long
 
     @Update
-    fun update(item: QuoteVehicle)
+    suspend fun update(item: QuoteVehicle)
 
     @Query("SELECT * FROM tb_quote_vehicle WHERE status IN(1)")
-    fun findAll(): List<QuoteVehicle>
+    suspend fun findAll(): List<QuoteVehicle>
 
     @Delete
-    fun delete(item: QuoteVehicle)
+    suspend fun delete(item: QuoteVehicle)
 
 }

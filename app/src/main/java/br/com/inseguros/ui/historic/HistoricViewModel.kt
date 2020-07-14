@@ -5,9 +5,7 @@ import androidx.lifecycle.ViewModel
 import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.data.repository.ParentRepository
 import br.com.inseguros.data.repository.QuoteVehicleRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class HistoricViewModel(private val repository: ParentRepository) : ViewModel() {
 
@@ -28,26 +26,20 @@ class HistoricViewModel(private val repository: ParentRepository) : ViewModel() 
     // *********************************************************************************************
 
     fun loadCurrentQuotesVehicle() = runBlocking {
-        withContext(Dispatchers.IO) {
-            val quotesVehicle = (repository as QuoteVehicleRepository).findAll()
-            if (quotesVehicle.isNotEmpty()) {
-                currentQuotesVehicleLiveData.postValue(quotesVehicle)
-            }
+        val quotesVehicle = (repository as QuoteVehicleRepository).findAll()
+        if (quotesVehicle.isNotEmpty()) {
+            currentQuotesVehicleLiveData.postValue(quotesVehicle)
         }
     }
 
     fun cancelCurrentQuote(item: QuoteVehicle) = runBlocking {
-        withContext(Dispatchers.IO) {
-            (repository as QuoteVehicleRepository).update(item)
-            currentOPQuoteStatus.postValue(item.quoteStatus)
-        }
+        (repository as QuoteVehicleRepository).update(item)
+        currentOPQuoteStatus.postValue(item.quoteStatus)
     }
 
     fun deleteQuotes(items: List<QuoteVehicle>) = runBlocking {
-        withContext(Dispatchers.IO) {
-            items.forEach {
-                (repository as QuoteVehicleRepository).delete(it)
-            }
+        items.forEach {
+            (repository as QuoteVehicleRepository).delete(it)
         }
     }
 

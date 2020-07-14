@@ -35,14 +35,12 @@ class QuoteGenericScreenViewModel(private val repository: ParentRepository) : Vi
     // *********************************************************************************************
 
     fun insertQuoteVehicle() = runBlocking {
-        withContext(Dispatchers.IO) {
-            val id = (repository as QuoteVehicleRepository).insert(currentQuoteVehicleLiveData.value!!)
-            if (id > -1) {
-                currentSaveStatus.postValue(SaveStatusEnum.SUCCESS)
-            }
-            else {
-                currentSaveStatus.postValue(SaveStatusEnum.ERROR)
-            }
+        val id = (repository as QuoteVehicleRepository).insert(currentQuoteVehicleLiveData.value!!)
+        if (id > -1) {
+            currentSaveStatus.postValue(SaveStatusEnum.SUCCESS)
+        }
+        else {
+            currentSaveStatus.postValue(SaveStatusEnum.ERROR)
         }
     }
 
