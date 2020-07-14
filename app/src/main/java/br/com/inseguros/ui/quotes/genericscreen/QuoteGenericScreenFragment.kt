@@ -13,15 +13,20 @@ import androidx.navigation.Navigation
 import br.com.concrete.canarinho.validator.Validador
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
 import br.com.inseguros.R
-import br.com.inseguros.data.model.*
+import br.com.inseguros.data.enums.CivilStateEnum
+import br.com.inseguros.data.enums.QuoteTypeEnum
+import br.com.inseguros.data.enums.SaveStatusEnum
+import br.com.inseguros.data.enums.VehicleTypeEnum
+import br.com.inseguros.data.model.MainSubMenu
+import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.databinding.QuoteGenericScreenFragmentBinding
 import br.com.inseguros.events.RefreshHistoricListEvent
 import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.utils.*
 import com.rengwuxian.materialedittext.MaterialEditText
+import org.greenrobot.eventbus.EventBus
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
-import org.greenrobot.eventbus.EventBus
 
 class QuoteGenericScreenFragment : BaseFragment() {
 
@@ -59,6 +64,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
             val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
             binding.quoteGenericIconIv.setImageBitmap(decodedByte)
         }
+
         if (mainSubMenu.description.isNotEmpty())
             binding.quoteGenericDescriptionTv.text = mainSubMenu.description
 
@@ -128,11 +134,11 @@ class QuoteGenericScreenFragment : BaseFragment() {
             R.id.female_generic_rb -> 'F'
             else -> ' '
         }
-        val civilState = binding.civilStateGenericSpn.selectedItem?.toString()
+        val civilState = getCivilStateSelected()
         val vehicleBrand = binding.vehicleBrandGenericSpn.selectedItem?.toString()
         if (genreChar == ' ') {
             "Selecione o genero".makeErrorShortToast(requireContext())
-        } else if (civilState.isNullOrEmpty()) {
+        } else if (civilState.isEmpty()) {
             "Selecione o estado civíl".makeErrorShortToast(requireContext())
         } else if (vehicleBrand.isNullOrEmpty()) {
             "Selecione a marca do veículo".makeErrorShortToast(requireContext())
@@ -154,7 +160,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
                 this?.vehicleModel = binding.vehicleModelNameGenericMet.text.toString()
                 this?.vehicleYearManufacture = binding.vehicleYeaManufacturerMet.text.toString()
                 this?.vehicleModelYear = binding.vehicleModelYearMet.text.toString()
-                this?.vehicleLicenceNumber = binding.vehicleLicenceNumberGenericMet.text.toString().toLong()
+                this?.vehicleLicenceNumber = binding.vehicleLicenceNumberGenericMet.text.toString()
                 this?.vehicleLicenceTime = convertDateToLong(binding.vehicleLicenceTimeGenericMet.text.toString())
                 this?.overnightCEP = binding.vehicleOvernightZipGenericMet.text.toString()
                 this?.quoteDate = Calendar.getInstance().timeInMillis
@@ -165,6 +171,14 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
             viewModel.insertQuoteVehicle()
 
+        }
+    }
+
+    private fun getCivilStateSelected(): String {
+        return when(binding.civilStateGenericSpn.selectedItemId.toInt()) {
+            1 -> CivilStateEnum.SINGLE.value
+            2 -> CivilStateEnum.MARRIED.value
+            else -> ""
         }
     }
 
@@ -179,7 +193,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
             binding.vehicleModelNameGenericMet.setText(vehicleModel)
             binding.vehicleYeaManufacturerMet.setText(vehicleYearManufacture)
             binding.vehicleModelYearMet.setText(vehicleModelYear)
-            binding.vehicleLicenceNumberGenericMet.setText(vehicleLicenceNumber.toString())
+            binding.vehicleLicenceNumberGenericMet.setText(vehicleLicenceNumber)
             binding.vehicleLicenceTimeGenericMet.setText(convertDateToString(Date(vehicleLicenceTime)))
             binding.vehicleOvernightZipGenericMet.setText(overnightCEP)
             binding.vehicleRegisterNumMet.setText(vehicleRegisterNum)
@@ -199,8 +213,8 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
     private fun setCivilStateSpn(civilState: String) {
         when(civilState) {
-            getString(R.string.civil_state_option_single) -> { binding.civilStateGenericSpn.setSelection(1) }
-            getString(R.string.civil_state_option_married) -> { binding.civilStateGenericSpn.setSelection(2) }
+            CivilStateEnum.SINGLE.value -> { binding.civilStateGenericSpn.setSelection(1) }
+            CivilStateEnum.MARRIED.value -> { binding.civilStateGenericSpn.setSelection(2) }
         }
     }
 
@@ -244,7 +258,6 @@ class QuoteGenericScreenFragment : BaseFragment() {
         var day = c.get(Calendar.DAY_OF_MONTH)
 
         val dpd = DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, pYear, pMonth, pDayOfMonth ->
-            // Display Selected date in TextView
             val dayStr = if (pDayOfMonth < 10) "0$pDayOfMonth" else pDayOfMonth.toString()
             val monthStr = if (pMonth+1 < 10) "0${pMonth+1}" else (pMonth+1).toString()
             met.setText("$dayStr$monthStr$pYear")

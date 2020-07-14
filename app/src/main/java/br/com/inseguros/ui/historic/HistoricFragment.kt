@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import br.com.inseguros.R
 import br.com.inseguros.data.model.MainSubMenu
-import br.com.inseguros.data.model.QuoteTypeEnum
+import br.com.inseguros.data.enums.QuoteTypeEnum
 import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.databinding.HistoricFragmentBinding
 import br.com.inseguros.events.RefreshHistoricListEvent

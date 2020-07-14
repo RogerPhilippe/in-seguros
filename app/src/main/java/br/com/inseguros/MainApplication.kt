@@ -1,7 +1,7 @@
 package br.com.inseguros
 
 import android.app.Application
-import br.com.inseguros.data.model.AppSession
+import br.com.inseguros.data.AppSession
 import br.com.inseguros.di.daoModule
 import br.com.inseguros.di.dbModule
 import br.com.inseguros.di.repositoryModule

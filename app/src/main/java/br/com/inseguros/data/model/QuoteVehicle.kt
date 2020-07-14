@@ -19,7 +19,7 @@ data class QuoteVehicle(
     var vehicleModel: String = "",
     var vehicleYearManufacture: String = "",
     var vehicleModelYear: String = "",
-    var vehicleLicenceNumber: Long = 0,
+    var vehicleLicenceNumber: String = "",
     var vehicleLicenceTime: Long = 0,
     var vehicleRegisterNum: String = "",
     var overnightCEP: String = "",

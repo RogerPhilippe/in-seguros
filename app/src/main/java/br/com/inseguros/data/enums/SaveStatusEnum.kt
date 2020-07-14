@@ -1,4 +1,4 @@
-package br.com.inseguros.data.model
+package br.com.inseguros.data.enums
 
 enum class SaveStatusEnum {
     SUCCESS,

@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import br.com.inseguros.R
-import br.com.inseguros.data.model.AppSession
+import br.com.inseguros.data.AppSession
 import br.com.inseguros.data.model.MainSubMenu
 import br.com.inseguros.databinding.QuoteFragmentBinding
 import br.com.inseguros.ui.BaseFragment

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.inseguros.R
 import br.com.inseguros.data.model.MainSubMenu
+import br.com.inseguros.utils.makeShortToast
 import kotlinx.android.synthetic.main.main_sub_manu_item.view.*
 import org.jetbrains.annotations.NotNull
 
@@ -34,12 +35,18 @@ class QuoteAdapter(
                     "main_menu_id_item_2" -> parent.navControllerNavigateTo(
                         R.id.action_quoteFragment_to_quoteGenericScreenFragment, this
                     )
-                    "main_menu_id_item_3" -> parent.navControllerNavigateTo(
-                        R.id.action_quoteFragment_to_quoteHouseFragment, this
-                    )
-                    "main_menu_id_item_4" -> parent.navControllerNavigateTo(
-                        R.id.action_quoteFragment_to_quoteLifeFragment, this
-                    )
+                    "main_menu_id_item_3" -> {
+                        parent.getString(R.string.not_implemented_in_alpha_yet).makeShortToast(parent.requireContext())
+                        /**
+                         * parent.navControllerNavigateTo(R.id.action_quoteFragment_to_quoteHouseFragment, this)
+                         */
+                    }
+                    "main_menu_id_item_4" -> {
+                        parent.getString(R.string.not_implemented_in_alpha_yet).makeShortToast(parent.requireContext())
+                        /**
+                         * parent.navControllerNavigateTo(R.id.action_quoteFragment_to_quoteLifeFragment, this)
+                         */
+                    }
                 }
             }
 

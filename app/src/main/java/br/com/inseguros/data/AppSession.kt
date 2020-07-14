@@ -1,6 +1,8 @@
-package br.com.inseguros.data.model
+package br.com.inseguros.data
 
 import androidx.lifecycle.MutableLiveData
+import br.com.inseguros.data.model.MainMenu
+import br.com.inseguros.data.model.MainSubMenu
 import br.com.inseguros.utils.RemoteConfigUtils
 
 object AppSession {
@@ -35,7 +37,13 @@ object AppSession {
             val currentTitle = firebaseRConfig.getString("main_menu_title_item_$count")
             val currentIcon = firebaseRConfig.getString("main_menu_icon_item_$count")
             if (currentTitle.isNotEmpty() && currentIcon.isNotEmpty()) {
-                items.add(MainMenu(currentID, currentTitle, currentIcon))
+                items.add(
+                    MainMenu(
+                        currentID,
+                        currentTitle,
+                        currentIcon
+                    )
+                )
                 count ++
             } else {
                 mustFill = false
@@ -61,7 +69,15 @@ object AppSession {
             val currentDescription = firebaseRConfig.getString("main_sub_menu_description_item_$count")
             val currentIcon = firebaseRConfig.getString("main_sub_menu_icon_item_$count")
             if (currentTitle.isNotEmpty() && currentIcon.isNotEmpty()) {
-                items.add(MainSubMenu(currentID, currentTitle, currentSubTitle, currentDescription, currentIcon))
+                items.add(
+                    MainSubMenu(
+                        currentID,
+                        currentTitle,
+                        currentSubTitle,
+                        currentDescription,
+                        currentIcon
+                    )
+                )
                 count ++
             } else {
                 mustFill = false
@@ -74,10 +90,12 @@ object AppSession {
 
     }
 
-    fun getMainMenuStatus() = mainMenuStatusLiveData
+    fun getMainMenuStatus() =
+        mainMenuStatusLiveData
     fun getMainMenuItems() = mainMenuItems
 
-    fun getMainSubMenuStatus() = mainSubMenuStatusLiveData
+    fun getMainSubMenuStatus() =
+        mainSubMenuStatusLiveData
     fun getMainSubMenuItems() = mainSubMenuItems
 
 }

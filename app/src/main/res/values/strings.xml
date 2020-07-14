@@ -47,4 +47,5 @@
     <string name="undo_label">Desfazer</string>
     <string name="item_removed_label">Item removido</string>
     <string name="update_label">Atualizar</string>
+    <string name="not_implemented_in_alpha_yet">Ainda não implementado nessa versão alpha</string>
 </resources>

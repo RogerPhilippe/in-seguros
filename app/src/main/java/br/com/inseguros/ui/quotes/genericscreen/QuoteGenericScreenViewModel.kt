@@ -3,7 +3,7 @@ package br.com.inseguros.ui.quotes.genericscreen
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.inseguros.data.model.QuoteVehicle
-import br.com.inseguros.data.model.SaveStatusEnum
+import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.repository.ParentRepository
 import br.com.inseguros.data.repository.QuoteVehicleRepository
 import kotlinx.coroutines.Dispatchers

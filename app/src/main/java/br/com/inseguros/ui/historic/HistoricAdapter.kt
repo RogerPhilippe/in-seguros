@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.inseguros.R
-import br.com.inseguros.data.model.QuoteTypeEnum
+import br.com.inseguros.data.enums.QuoteTypeEnum
 import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.utils.convertDateToString
 import kotlinx.android.synthetic.main.historic_item_layout.view.*
