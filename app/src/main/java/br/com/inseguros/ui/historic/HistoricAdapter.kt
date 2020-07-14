@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.inseguros.R
 import br.com.inseguros.data.enums.QuoteTypeEnum
 import br.com.inseguros.data.model.QuoteVehicle
-import br.com.inseguros.utils.convertDateToString
+import br.com.utils_in_seguros.convertDateToString
 import kotlinx.android.synthetic.main.historic_item_layout.view.*
 import java.util.*
 

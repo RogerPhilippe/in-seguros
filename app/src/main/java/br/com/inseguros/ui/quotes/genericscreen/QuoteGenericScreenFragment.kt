@@ -22,7 +22,12 @@ import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.databinding.QuoteGenericScreenFragmentBinding
 import br.com.inseguros.events.RefreshHistoricListEvent
 import br.com.inseguros.ui.BaseFragment
-import br.com.inseguros.utils.*
+import br.com.inseguros.utils.DialogFragmentUtil
+import br.com.inseguros.utils.validMaterialEditTextFilled
+import br.com.utils_in_seguros.convertDateToLong
+import br.com.utils_in_seguros.convertDateToString
+import br.com.utils_in_seguros.makeErrorShortToast
+import br.com.utils_in_seguros.makeShortToast
 import com.rengwuxian.materialedittext.MaterialEditText
 import org.greenrobot.eventbus.EventBus
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -38,7 +43,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
     private var editMode = false
     private lateinit var quoteVehicleItemToEdit: QuoteVehicle
     private lateinit var brandsArrayAdapter: ArrayAdapter<String>
-    private val viewModel: QuoteGenericScreenViewModel by viewModel()
+    private val mViewModel: QuoteGenericScreenViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -148,7 +153,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
             "CPF inválido".makeErrorShortToast(requireContext())
         } else {
 
-            viewModel.getCurrentQuoteVehicleLiveData().value.apply {
+            mViewModel.getCurrentQuoteVehicleLiveData().value.apply {
                 this?.id = if (editMode) quoteVehicleItemToEdit.id else 0L
                 this?.fullName = binding.fullNameGenericMet.text.toString()
                 this?.cpf = binding.cpfGenericMet.text.toString()
@@ -169,7 +174,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
                 this?.status = true
             }
 
-            viewModel.insertQuoteVehicle()
+            mViewModel.insertQuoteVehicle()
 
         }
     }
@@ -233,11 +238,11 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
     private fun setupObservers() {
 
-        viewModel.getCurrentSaveStatus().observe(viewLifecycleOwner, object : Observer<SaveStatusEnum>{
+        mViewModel.getCurrentSaveStatus().observe(viewLifecycleOwner, object : Observer<SaveStatusEnum>{
             override fun onChanged(t: SaveStatusEnum?) {
                 if (t == SaveStatusEnum.SUCCESS) {
                     "Salvo".makeShortToast(requireContext())
-                    viewModel.getCurrentSaveStatus().removeObserver(this)
+                    mViewModel.getCurrentSaveStatus().removeObserver(this)
                     if (editMode)
                         EventBus.getDefault().post(RefreshHistoricListEvent())
                     popBackStack()

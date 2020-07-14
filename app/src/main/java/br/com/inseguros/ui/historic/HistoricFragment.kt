@@ -9,8 +9,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import br.com.inseguros.R
-import br.com.inseguros.data.model.MainSubMenu
 import br.com.inseguros.data.enums.QuoteTypeEnum
+import br.com.inseguros.data.model.MainSubMenu
 import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.databinding.HistoricFragmentBinding
 import br.com.inseguros.events.RefreshHistoricListEvent
@@ -18,7 +18,7 @@ import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.ui.utils.SwipeToDeleteCallback
 import br.com.inseguros.utils.DialogFragmentUtil
 import br.com.inseguros.utils.SnackBarUtil
-import br.com.inseguros.utils.makeShortToast
+import br.com.utils_in_seguros.makeShortToast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -28,7 +28,7 @@ class HistoricFragment : BaseFragment() {
 
     private lateinit var binding: HistoricFragmentBinding
     override val layout = R.layout.historic_fragment
-    private val viewModel: HistoricViewModel by viewModel()
+    private val mViewModel: HistoricViewModel by viewModel()
     private lateinit var navController: NavController
     private lateinit var adapter: HistoricAdapter
     private val items = mutableListOf<QuoteVehicle>()
@@ -62,28 +62,26 @@ class HistoricFragment : BaseFragment() {
         setupObservers()
         setupListeners()
 
-        viewModel.loadCurrentQuotesVehicle()
+        mViewModel.loadCurrentQuotesVehicle()
 
     }
 
     private fun setupObservers() {
 
-        viewModel.getCurrentQuotesVehicleLiveData().observe(viewLifecycleOwner, object : Observer<List<QuoteVehicle>>{
-            override fun onChanged(list: List<QuoteVehicle>) {
+        mViewModel.getCurrentQuotesVehicleLiveData().observe(viewLifecycleOwner,
+            Observer<List<QuoteVehicle>> { list ->
                 if (list.isNotEmpty()) {
                     items.clear()
                     items.addAll(list)
                     adapter.notifyDataSetChanged()
                 }
-            }
-        })
+            })
 
-        viewModel.getCurrentOPQuoteStatus().observe(viewLifecycleOwner, object : Observer<String>{
-            override fun onChanged(status: String) {
+        mViewModel.getCurrentOPQuoteStatus().observe(viewLifecycleOwner,
+            Observer<String> { status ->
                 status.makeShortToast(requireContext())
                 adapter.notifyDataSetChanged()
-            }
-        })
+            })
     }
 
     private fun setupListeners() {
@@ -110,7 +108,7 @@ class HistoricFragment : BaseFragment() {
                 item.apply {
                     this.quoteStatus = QuoteTypeEnum.CANCELED.value
                 }
-                viewModel.cancelCurrentQuote(item)
+                mViewModel.cancelCurrentQuote(item)
             },
             {}
         ).show(parentFragmentManager, "quote_cancel_dialog_fragment")
@@ -136,13 +134,13 @@ class HistoricFragment : BaseFragment() {
     override fun onDestroy() {
         super.onDestroy()
         if (itemsToRemove.size > 0) {
-            viewModel.deleteQuotes(itemsToRemove)
+            mViewModel.deleteQuotes(itemsToRemove)
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun updateEvent(event: RefreshHistoricListEvent) {
-        viewModel.loadCurrentQuotesVehicle()
+        mViewModel.loadCurrentQuotesVehicle()
     }
 
 }

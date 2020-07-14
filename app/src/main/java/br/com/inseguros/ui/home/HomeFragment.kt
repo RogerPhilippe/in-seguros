@@ -1,5 +1,6 @@
 package br.com.inseguros.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -16,6 +17,8 @@ import br.com.inseguros.R
 import br.com.inseguros.data.model.MainMenu
 import br.com.inseguros.databinding.FragmentHomeBinding
 import br.com.inseguros.ui.BaseFragment
+import br.com.inseguros.ui.settings.SettingsActivity
+import br.com.inseguros.utils.makeShortToast
 
 class HomeFragment : BaseFragment() {
 
@@ -24,7 +27,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var adapter: MainMenuAdapter
     private lateinit var binding: FragmentHomeBinding
     private lateinit var navController: NavController
-    private val viewModel: HomeViewModel by viewModels()
+    private val mViewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,22 +40,42 @@ class HomeFragment : BaseFragment() {
         adapter = MainMenuAdapter(items, this)
         binding.mainMenuRV.adapter = adapter
 
-        viewModel.getMainMenuRemoteConfig()
+        mViewModel.getMainMenuRemoteConfig()
 
+        this.setupListeners()
         this.setupObservers()
+
+    }
+
+    private fun setupListeners() {
+
+        // main_bottom_navigation
+        binding.mainBottomNavigation.setOnNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.navigation_notifications -> {
+                    getString(R.string.not_implemented_in_alpha_yet).makeShortToast(requireContext())
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.bottom_navigation_settings -> {
+                    startActivity(Intent(requireContext(), SettingsActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
 
     }
 
     private fun setupObservers() {
 
-        viewModel.getCurrentMainMenuItem().observe(viewLifecycleOwner, object : Observer<List<MainMenu>>{
+        mViewModel.getCurrentMainMenuItem().observe(viewLifecycleOwner, object : Observer<List<MainMenu>>{
             override fun onChanged(mainMenuList: List<MainMenu>) {
                 if (!mainMenuList.isNullOrEmpty()) {
                     items.clear()
                     items.addAll(mainMenuList)
                     adapter.notifyDataSetChanged()
                 }
-                viewModel.getCurrentMainMenuItem().removeObserver(this)
+                mViewModel.getCurrentMainMenuItem().removeObserver(this)
             }
         })
 

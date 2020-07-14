@@ -1,6 +1,7 @@
 package br.com.inseguros
 
 import android.app.Application
+import androidx.preference.PreferenceManager
 import br.com.inseguros.data.AppSession
 import br.com.inseguros.di.daoModule
 import br.com.inseguros.di.dbModule
@@ -22,6 +23,14 @@ class MainApplication : Application() {
                 listOf(viewModelModules, dbModule, daoModule, repositoryModule)
             )
         }
+
+        /**
+         * auto_login
+         * notification_active
+         * app_desc
+         * app_version
+         */
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         AppSession.setMainMenuItems()
 

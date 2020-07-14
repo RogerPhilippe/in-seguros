@@ -66,9 +66,11 @@
     <fragment
         android:id="@+id/quoteHouseFragment"
         android:name="br.com.inseguros.ui.quotes.house.QuoteHouseFragment"
-        android:label="QuoteHouseFragment" />
+        android:label="QuoteHouseFragment"
+        tools:layout="@layout/quote_house_fragment"/>
     <fragment
         android:id="@+id/quoteLifeFragment"
         android:name="br.com.inseguros.ui.quotes.life.QuoteLifeFragment"
-        android:label="QuoteLifeFragment" />
+        android:label="QuoteLifeFragment"
+        tools:layout="@layout/quote_house_fragment"/>
 </navigation>

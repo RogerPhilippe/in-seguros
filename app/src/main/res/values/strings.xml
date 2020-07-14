@@ -48,4 +48,9 @@
     <string name="item_removed_label">Item removido</string>
     <string name="update_label">Atualizar</string>
     <string name="not_implemented_in_alpha_yet">Ainda não implementado nessa versão alpha</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Sync Preferences -->
+    <string name="num_date_version_app">Versão: 1.0.0.alphav1 – 14/07/2020</string>
+    <string name="app_description">APP IN Seguros - TCC FIAP 19MOB</string>
 </resources>

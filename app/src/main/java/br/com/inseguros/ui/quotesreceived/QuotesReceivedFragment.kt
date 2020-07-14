@@ -11,7 +11,7 @@ import br.com.inseguros.ui.BaseFragment
 class QuotesReceivedFragment : BaseFragment() {
 
     private lateinit var binding: QuotesReceivedFragmentBinding
-    private val viewModel: QuotesReceivedViewModel by viewModels()
+    private val mViewModel: QuotesReceivedViewModel by viewModels()
     override val layout = R.layout.quotes_received_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
