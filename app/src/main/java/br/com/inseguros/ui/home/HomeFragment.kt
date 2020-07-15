@@ -13,12 +13,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
 import br.com.inseguros.data.model.MainMenu
 import br.com.inseguros.databinding.FragmentHomeBinding
 import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.ui.settings.SettingsActivity
-import br.com.inseguros.utils.makeShortToast
 
 class HomeFragment : BaseFragment() {
 

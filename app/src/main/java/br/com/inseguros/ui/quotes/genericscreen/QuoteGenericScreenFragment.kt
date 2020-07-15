@@ -12,6 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.concrete.canarinho.validator.Validador
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
+import br.com.in_seguros_utils.convertDateToLong
+import br.com.in_seguros_utils.convertDateToString
+import br.com.in_seguros_utils.makeErrorShortToast
+import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
 import br.com.inseguros.data.enums.CivilStateEnum
 import br.com.inseguros.data.enums.QuoteTypeEnum
@@ -24,10 +28,6 @@ import br.com.inseguros.events.RefreshHistoricListEvent
 import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.utils.DialogFragmentUtil
 import br.com.inseguros.utils.validMaterialEditTextFilled
-import br.com.utils_in_seguros.convertDateToLong
-import br.com.utils_in_seguros.convertDateToString
-import br.com.utils_in_seguros.makeErrorShortToast
-import br.com.utils_in_seguros.makeShortToast
 import com.rengwuxian.materialedittext.MaterialEditText
 import org.greenrobot.eventbus.EventBus
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -307,7 +307,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
         var status = true
 
-        if (binding.cpfGenericMet.text.isEmpty() &&
+        if (binding.cpfGenericMet.text?.isEmpty() == true &&
             !Validador.CPF.ehValido(binding.cpfGenericMet.text.toString())) {
 
             binding.cpfGenericMet.error = "Erro no formato do CPF"
@@ -321,23 +321,23 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
         val filledFields = arrayListOf<Boolean>()
 
-        if (binding.fullNameGenericMet.text.isNotEmpty())
+        if (binding.fullNameGenericMet.text?.isNotEmpty() == true)
             filledFields.add(true)
-        if (binding.cpfGenericMet.text.isNotEmpty())
+        if (binding.cpfGenericMet.text?.isNotEmpty() == true)
             filledFields.add(true)
-        if (binding.birthGenericMet.text.isNotEmpty())
+        if (binding.birthGenericMet.text?.isNotEmpty() == true)
             filledFields.add(true)
-        if (binding.vehicleLicenceNumberGenericMet.text.isNotEmpty())
+        if (binding.vehicleLicenceNumberGenericMet.text?.isNotEmpty() == true)
             filledFields.add(true)
-        if (binding.vehicleLicenceTimeGenericMet.text.isNotEmpty())
+        if (binding.vehicleLicenceTimeGenericMet.text?.isNotEmpty() == true)
             filledFields.add(true)
-        if (binding.vehicleModelYearMet.text.isNotEmpty())
+        if (binding.vehicleModelYearMet.text?.isNotEmpty() == true)
             filledFields.add(true)
-        if (binding.vehicleYeaManufacturerMet.text.isNotEmpty())
+        if (binding.vehicleYeaManufacturerMet.text?.isNotEmpty() == true)
             filledFields.add(true)
-        if (binding.vehicleRegisterNumMet.text.isNullOrEmpty())
+        if (binding.vehicleRegisterNumMet.text?.isEmpty() == true)
             filledFields.add(true)
-        if (binding.vehicleOvernightZipGenericMet.text.isNotEmpty())
+        if (binding.vehicleOvernightZipGenericMet.text?.isNotEmpty() == true)
             filledFields.add(true)
 
         if (filledFields.isNotEmpty())

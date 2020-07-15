@@ -50,7 +50,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation project(path: ':utils-in-seguros')
+    implementation project(path: ':in-seguros-utils')
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -75,7 +75,7 @@ dependencies {
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
     // Material EditText
-    implementation 'com.rengwuxian.materialedittext:library:2.0.3'
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
     // Material spinner
     implementation 'com.github.ganfra:material-spinner:2.0.0'
     // Validações e formatações de documentos do Brasil

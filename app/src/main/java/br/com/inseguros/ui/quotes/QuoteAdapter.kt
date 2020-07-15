@@ -6,9 +6,9 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
 import br.com.inseguros.data.model.MainSubMenu
-import br.com.inseguros.utils.makeShortToast
 import kotlinx.android.synthetic.main.main_sub_manu_item.view.*
 import org.jetbrains.annotations.NotNull
 

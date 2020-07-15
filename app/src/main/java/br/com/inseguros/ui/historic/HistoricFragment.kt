@@ -18,7 +18,7 @@ import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.ui.utils.SwipeToDeleteCallback
 import br.com.inseguros.utils.DialogFragmentUtil
 import br.com.inseguros.utils.SnackBarUtil
-import br.com.utils_in_seguros.makeShortToast
+import br.com.in_seguros_utils.makeShortToast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

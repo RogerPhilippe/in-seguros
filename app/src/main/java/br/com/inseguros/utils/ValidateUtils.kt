@@ -7,7 +7,7 @@ import com.rengwuxian.materialedittext.MaterialEditText
 fun validMaterialEditTextFilled(met: MaterialEditText, context: Context): Boolean {
     val errorMsg = context.getString(R.string.error_msg_field_empty)
 
-    if (met.text.isEmpty()) {
+    if (met.text?.isEmpty() == true) {
         met.error = errorMsg
         return false
     }
