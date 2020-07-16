@@ -41,3 +41,11 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    apkNamePrefix = "IN_SEGUROS"
+    versionNamePrefix = "1.0.0"
+    releaseDate = new Date().format('yyyyMMddHHmm')
+    versionName = versionNamePrefix + "." + releaseDate
+    apkName = apkNamePrefix + "_" + versionName
+}

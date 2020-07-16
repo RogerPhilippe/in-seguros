@@ -19,6 +19,40 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions "app"
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+            dimension "app"
+        }
+        qa {
+            applicationIdSuffix ".qa"
+            dimension "app"
+        }
+
+        prod {
+            dimension "app"
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def fileName = "${project.apkName}"
+            if (variant.productFlavors[0].name == "dev") {
+                fileName = fileName + "_DEV"
+            } else if (variant.productFlavors[0].name == "qa") {
+                fileName = fileName + "_QA"
+            }
+
+            if (variant.buildType.name == "debug") {
+                fileName = fileName + "-DEBUG"
+            }
+
+            fileName = fileName + ".apk"
+            outputFileName = new File(variant.getPackageApplicationProvider().get().outputs.files[1], fileName).getName()
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -36,6 +70,7 @@ android {
         enabled = true
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
