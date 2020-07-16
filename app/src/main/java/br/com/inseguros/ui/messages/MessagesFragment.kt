@@ -28,4 +28,9 @@ class MessagesFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        trackEvent("message_fragment", "onResume")
+    }
+
 }

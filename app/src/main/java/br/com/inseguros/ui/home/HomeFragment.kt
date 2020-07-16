@@ -19,6 +19,7 @@ import br.com.inseguros.data.model.MainMenu
 import br.com.inseguros.databinding.FragmentHomeBinding
 import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.ui.settings.SettingsActivity
+import br.com.inseguros.utils.InSegurosTracker
 
 class HomeFragment : BaseFragment() {
 
@@ -47,6 +48,11 @@ class HomeFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        trackEvent("home_fragment", "onResume")
+    }
+
     private fun setupListeners() {
 
         // main_bottom_navigation
@@ -71,6 +77,7 @@ class HomeFragment : BaseFragment() {
         mViewModel.getCurrentMainMenuItem().observe(viewLifecycleOwner, object : Observer<List<MainMenu>>{
             override fun onChanged(mainMenuList: List<MainMenu>) {
                 if (!mainMenuList.isNullOrEmpty()) {
+                    trackEvent("main_menu_list_size", mainMenuList.size)
                     items.clear()
                     items.addAll(mainMenuList)
                     adapter.notifyDataSetChanged()

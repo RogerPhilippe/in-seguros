@@ -66,6 +66,11 @@ class HistoricFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        trackEvent("historic_fragment", "onResume")
+    }
+
     private fun setupObservers() {
 
         mViewModel.getCurrentQuotesVehicleLiveData().observe(viewLifecycleOwner,

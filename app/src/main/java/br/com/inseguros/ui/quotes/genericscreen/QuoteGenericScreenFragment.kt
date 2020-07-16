@@ -108,6 +108,13 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        trackEvent("quote_generic_fragment", "onResume")
+        trackEvent("vehicle_type", (vehicleType as String))
+        trackEvent("editMode", editMode)
+    }
+
     private fun setupListeners() {
 
         binding.quotesGenericToolbar.setNavigationOnClickListener {

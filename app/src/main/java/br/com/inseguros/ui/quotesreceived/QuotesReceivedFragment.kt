@@ -28,4 +28,9 @@ class QuotesReceivedFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        trackEvent("quote_received_fragment", "onResume")
+    }
+
 }

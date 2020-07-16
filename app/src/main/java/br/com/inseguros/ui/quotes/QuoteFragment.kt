@@ -38,6 +38,11 @@ class QuoteFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        trackEvent("quote_fragment", "onResume")
+    }
+
     fun navControllerNavigateTo(id: Int, mainSubMenu: MainSubMenu) {
         val bundle = bundleOf("main_sub_menu" to mainSubMenu)
         navController.navigate(id, bundle)

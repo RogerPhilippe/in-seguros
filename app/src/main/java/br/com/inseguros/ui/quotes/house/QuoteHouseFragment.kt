@@ -27,4 +27,9 @@ class QuoteHouseFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        trackEvent("quote_house_fragment", "onResume")
+    }
+
 }
