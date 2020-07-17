@@ -81,5 +81,22 @@
         <action
             android:id="@+id/action_loginFragment_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="br.com.inseguros.ui.signup.SignUpFragment"
+        android:label="sign_up_fragment"
+        tools:layout="@layout/sign_up_fragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_useTermFragment"
+            app:destination="@id/useTermFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/useTermFragment"
+        android:name="br.com.inseguros.ui.useterm.UseTermFragment"
+        android:label="use_term_fragment"
+        tools:layout="@layout/use_term_fragment" />
 </navigation>

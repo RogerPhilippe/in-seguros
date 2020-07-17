@@ -63,6 +63,10 @@ class LoginFragment : BaseFragment() {
                 )
             }
         }
+
+        binding.registerTvBtn.setOnClickListener {
+            navController.navigate(R.id.action_loginFragment_to_signUpFragment)
+        }
     }
 
     private fun setupObservers() {

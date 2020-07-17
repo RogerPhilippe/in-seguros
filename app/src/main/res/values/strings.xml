@@ -62,4 +62,13 @@
     <string name="passwd_hint">Senha</string>
     <string name="dont_have_account_label">Não tem uma conta?</string>
     <string name="register_label">CADASTRE-SE</string>
+    <string name="register_screen_subtitle">Cadastre-se para utilizar o nosso app</string>
+    <string name="user_name_label">Nome</string>
+    <string name="phone_number_label">Telefone</string>
+    <string name="register_btn">Registrar-se</string>
+    <string name="use_term_check_box_label">Ler e aceitar os termos de uso do app</string>
+    <string name="use_term_title">Termos de Uso</string>
+    <string name="use_term_content">Bla bla bla...</string>
+    <string name="reject_btn_label">Rejeitar</string>
+    <string name="accept_btn_label">Aceitar</string>
 </resources>

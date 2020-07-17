@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/passwd_hint"
+            android:inputType="textPassword"
             app:met_textColorHint="@color/colorPrimaryDark"
             app:met_floatingLabel="highlight"
             app:met_primaryColor="?colorAccent"
@@ -55,7 +56,7 @@
 
             <Button
                 android:id="@+id/cancel_login_btn"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 style="@style/button"
@@ -67,7 +68,7 @@
 
             <Button
                 android:id="@+id/enter_login_btn"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 style="@style/button"
@@ -80,6 +81,7 @@
             </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/register_login_screen_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"

@@ -13,6 +13,7 @@ import br.com.inseguros.ui.quotes.genericscreen.QuoteGenericScreenViewModel
 import br.com.inseguros.ui.quotes.house.QuoteHouseViewModel
 import br.com.inseguros.ui.quotes.life.QuoteLifeViewModel
 import br.com.inseguros.ui.quotesreceived.QuotesReceivedViewModel
+import br.com.inseguros.ui.useterm.UseTermViewModel
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -40,6 +41,7 @@ val viewModelModules = module {
     viewModel { QuoteLifeViewModel() }
     viewModel { HistoricViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
+    viewModel { UseTermViewModel() }
 }
 
 val dbModule = module {

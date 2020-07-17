@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="br.com.inseguros.ui.signup.SignUpFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="92dp"
+                android:layout_height="92dp"
+                app:srcCompat="@mipmap/ic_in_seguros_icon"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_screen_subtitle"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_margin="12dp"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/user_register_met"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/user_name_label"
+                app:met_textColorHint="@color/colorPrimaryDark"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorAccent"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/email_register_met"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_hint"
+                app:met_textColorHint="@color/colorPrimaryDark"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorAccent"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/phone_number_register_met"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number_label"
+                app:met_textColorHint="@color/colorPrimaryDark"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorAccent"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/passwd_register_met"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/passwd_hint"
+                app:met_textColorHint="@color/colorPrimaryDark"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorAccent"
+                app:met_singleLineEllipsis="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cancel_register_btn"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/button"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/cancel_label"/>
+
+                <Button
+                    android:id="@+id/create_register_btn"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/button"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/register_btn"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/use_term_register_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/use_terms_accept_la"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    app:lottie_rawRes="@raw/checkbox_animation" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_term_check_box_label"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
