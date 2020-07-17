@@ -5,6 +5,7 @@ import br.com.inseguros.data.DatabaseHandler
 import br.com.inseguros.data.dao.QuoteVehicleDAO
 import br.com.inseguros.data.repository.ParentRepository
 import br.com.inseguros.data.repository.QuoteVehicleRepository
+import br.com.inseguros.ui.LoginViewModel
 import br.com.inseguros.ui.historic.HistoricViewModel
 import br.com.inseguros.ui.home.HomeViewModel
 import br.com.inseguros.ui.messages.MessagesViewModel
@@ -12,6 +13,7 @@ import br.com.inseguros.ui.quotes.genericscreen.QuoteGenericScreenViewModel
 import br.com.inseguros.ui.quotes.house.QuoteHouseViewModel
 import br.com.inseguros.ui.quotes.life.QuoteLifeViewModel
 import br.com.inseguros.ui.quotesreceived.QuotesReceivedViewModel
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -27,6 +29,8 @@ private fun quoteVehicleRepository(dao: QuoteVehicleDAO): QuoteVehicleRepository
     return QuoteVehicleRepository(dao)
 }
 
+private fun firebaseAuth() = FirebaseAuth.getInstance()
+
 val viewModelModules = module {
     viewModel { HomeViewModel() }
     viewModel { QuotesReceivedViewModel() }
@@ -35,6 +39,7 @@ val viewModelModules = module {
     viewModel { QuoteHouseViewModel() }
     viewModel { QuoteLifeViewModel() }
     viewModel { HistoricViewModel(get()) }
+    viewModel { LoginViewModel(get(), get()) }
 }
 
 val dbModule = module {
@@ -47,4 +52,8 @@ val daoModule = module {
 
 val repositoryModule = module {
     single<ParentRepository> { quoteVehicleRepository(get()) }
+}
+
+val firebaseModules = module {
+    single { firebaseAuth() }
 }

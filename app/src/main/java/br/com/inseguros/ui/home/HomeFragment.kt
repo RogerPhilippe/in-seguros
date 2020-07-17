@@ -15,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
+import br.com.inseguros.data.UserSession
 import br.com.inseguros.data.model.MainMenu
 import br.com.inseguros.databinding.FragmentHomeBinding
 import br.com.inseguros.ui.BaseFragment
@@ -50,6 +51,9 @@ class HomeFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         trackEvent("home_fragment", "onResume")
+        binding.userNameTV.text = if (UserSession.getUserName().isNotEmpty())
+            UserSession.getUserName()
+        else UserSession.getUserEmail()
     }
 
     private fun setupListeners() {

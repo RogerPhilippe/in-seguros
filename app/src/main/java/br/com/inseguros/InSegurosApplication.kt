@@ -1,10 +1,7 @@
 package br.com.inseguros
 
 import android.app.Application
-import br.com.inseguros.di.daoModule
-import br.com.inseguros.di.dbModule
-import br.com.inseguros.di.repositoryModule
-import br.com.inseguros.di.viewModelModules
+import br.com.inseguros.di.*
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import io.fabric.sdk.android.Fabric
@@ -29,7 +26,7 @@ class InSegurosApplication : Application() {
             androidLogger()
             androidContext(this@InSegurosApplication)
             modules(
-                listOf(viewModelModules, dbModule, daoModule, repositoryModule)
+                listOf(viewModelModules, dbModule, daoModule, repositoryModule, firebaseModules)
             )
         }
 

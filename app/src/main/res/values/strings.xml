@@ -56,4 +56,10 @@
     <string name="com.crashlytics.useFirebaseAppId" translatable="false">true</string>
     <string name="dev_environment">Versão Desenvolvedor</string>
     <string name="qa_environment">Versão QA</string>
+    <string name="enter_label">Entrar</string>
+    <string name="login_in_seguros_label">Login IN Seguros</string>
+    <string name="email_hint">Email</string>
+    <string name="passwd_hint">Senha</string>
+    <string name="dont_have_account_label">Não tem uma conta?</string>
+    <string name="register_label">CADASTRE-SE</string>
 </resources>

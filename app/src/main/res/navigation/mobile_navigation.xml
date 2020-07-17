@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/loginFragment">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -73,4 +73,13 @@
         android:name="br.com.inseguros.ui.quotes.life.QuoteLifeFragment"
         android:label="QuoteLifeFragment"
         tools:layout="@layout/quote_house_fragment"/>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="br.com.inseguros.ui.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 </navigation>

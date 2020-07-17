@@ -19,14 +19,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        /**
-         * auto_login
-         * notification_active
-         * app_desc
-         * app_version
-         */
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-
         setupObservers()
         setupSplashScreenMinimumTime()
 
