@@ -1,5 +1,6 @@
 package br.com.inseguros.data
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import br.com.inseguros.data.model.MainMenu
 import br.com.inseguros.data.model.MainSubMenu
@@ -20,7 +21,10 @@ object AppSession {
                     fillMainMenu()
                     fillMainSubMenu()
                 }
-                else { mainMenuStatusLiveData.postValue(false) }
+                else {
+                    mainMenuStatusLiveData.postValue(false)
+                    Log.e("AppSession","RemoteConfig fetch main menu error!")
+                }
             }
 
     }
@@ -90,12 +94,10 @@ object AppSession {
 
     }
 
-    fun getMainMenuStatus() =
-        mainMenuStatusLiveData
+    fun getMainMenuStatus() = mainMenuStatusLiveData
     fun getMainMenuItems() = mainMenuItems
 
-    fun getMainSubMenuStatus() =
-        mainSubMenuStatusLiveData
+    fun getMainSubMenuStatus() = mainSubMenuStatusLiveData
     fun getMainSubMenuItems() = mainSubMenuItems
 
 }

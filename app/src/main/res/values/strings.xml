@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">IN Seguros</string>
     <string name="title_home">Home</string>
     <string name="title_settings">Configurações</string>
     <string name="title_notifications">Notificações</string>
@@ -55,4 +54,6 @@
     <string name="app_description">APP IN Seguros - TCC FIAP 19MOB</string>
 
     <string name="com.crashlytics.useFirebaseAppId" translatable="false">true</string>
+    <string name="dev_environment">Versão Desenvolvedor</string>
+    <string name="qa_environment">Versão QA</string>
 </resources>

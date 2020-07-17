@@ -19,7 +19,6 @@ import br.com.inseguros.data.model.MainMenu
 import br.com.inseguros.databinding.FragmentHomeBinding
 import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.ui.settings.SettingsActivity
-import br.com.inseguros.utils.InSegurosTracker
 
 class HomeFragment : BaseFragment() {
 
@@ -58,13 +57,16 @@ class HomeFragment : BaseFragment() {
         // main_bottom_navigation
         binding.mainBottomNavigation.setOnNavigationItemSelectedListener {
             when(it.itemId) {
+                R.id.bottom_navigation_home -> {
+                    return@setOnNavigationItemSelectedListener true
+                }
                 R.id.navigation_notifications -> {
                     getString(R.string.not_implemented_in_alpha_yet).makeShortToast(requireContext())
-                    return@setOnNavigationItemSelectedListener true
+                    return@setOnNavigationItemSelectedListener false
                 }
                 R.id.bottom_navigation_settings -> {
                     startActivity(Intent(requireContext(), SettingsActivity::class.java))
-                    return@setOnNavigationItemSelectedListener true
+                    return@setOnNavigationItemSelectedListener false
                 }
             }
             false

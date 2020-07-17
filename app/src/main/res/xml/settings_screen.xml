@@ -27,7 +27,7 @@
 
         <Preference
             app:key="app_version"
-            app:title="@string/num_date_version_app"/>
+            app:title="@string/environment_and_version_number"/>
 
         <Preference
             app:key="app_devs"
