@@ -13,8 +13,10 @@ import br.com.inseguros.ui.quotes.genericscreen.QuoteGenericScreenViewModel
 import br.com.inseguros.ui.quotes.house.QuoteHouseViewModel
 import br.com.inseguros.ui.quotes.life.QuoteLifeViewModel
 import br.com.inseguros.ui.quotesreceived.QuotesReceivedViewModel
+import br.com.inseguros.ui.signup.SignUpViewModel
 import br.com.inseguros.ui.useterm.UseTermViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -32,6 +34,8 @@ private fun quoteVehicleRepository(dao: QuoteVehicleDAO): QuoteVehicleRepository
 
 private fun firebaseAuth() = FirebaseAuth.getInstance()
 
+private fun firebaseDB() = FirebaseFirestore.getInstance()
+
 val viewModelModules = module {
     viewModel { HomeViewModel() }
     viewModel { QuotesReceivedViewModel() }
@@ -41,7 +45,8 @@ val viewModelModules = module {
     viewModel { QuoteLifeViewModel() }
     viewModel { HistoricViewModel(get()) }
     viewModel { LoginViewModel(get(), get()) }
-    viewModel { UseTermViewModel() }
+    viewModel { UseTermViewModel(get()) }
+    viewModel { SignUpViewModel(get(), get()) }
 }
 
 val dbModule = module {
@@ -58,4 +63,5 @@ val repositoryModule = module {
 
 val firebaseModules = module {
     single { firebaseAuth() }
+    single { firebaseDB() }
 }

@@ -2,6 +2,7 @@ package br.com.inseguros.data
 
 object UserSession {
 
+    private lateinit var mUserID: String
     private lateinit var mUserName: String
     private lateinit var mUserEmail: String
     private var mUseTermSignUpState: Boolean = false
@@ -26,5 +27,10 @@ object UserSession {
         mUserEmail = ""
         mUseTermSignUpState = false
     }
+
+    fun setUserID(userID: String) {
+        mUserID = userID
+    }
+    fun getUserID() = mUserID
 
 }

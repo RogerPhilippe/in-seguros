@@ -71,4 +71,6 @@
     <string name="use_term_content">Bla bla bla...</string>
     <string name="reject_btn_label">Rejeitar</string>
     <string name="accept_btn_label">Aceitar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

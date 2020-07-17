@@ -74,6 +74,7 @@ class LoginFragment : BaseFragment() {
         mViewModel.getCurrentUserAuthLiveData().observe(viewLifecycleOwner, object : Observer<User> {
             override fun onChanged(user: User) {
                 if (user.userID.isNotEmpty()) {
+                    UserSession.setUserID(user.userID)
                     UserSession.setUserName(user.displayName)
                     UserSession.setUserEmail(user.userLogin)
                     navController.navigate(R.id.action_loginFragment_to_navigation_home)
