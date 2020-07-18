@@ -44,11 +44,10 @@ class SignUpFragment : BaseFragment() {
 
         binding.createRegisterBtn.setOnClickListener {
             if (!checkBoxDone) {
-                "Por favor, leia e aceite os termos de uso para prosseguir.".makeErrorShortToast(mContext)
+                getString(R.string.read_use_terms_msg).makeErrorShortToast(mContext)
 
             } else {
                 if (validateFieldsFilled()) {
-                    showLoading()
                     mViewModel.signUp(
                         User(
                             displayName = binding.userRegisterMet.text.toString(),

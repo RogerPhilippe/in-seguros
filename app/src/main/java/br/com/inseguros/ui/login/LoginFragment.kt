@@ -1,4 +1,4 @@
-package br.com.inseguros.ui
+package br.com.inseguros.ui.login
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,7 @@ import br.com.inseguros.R
 import br.com.inseguros.data.UserSession
 import br.com.inseguros.data.model.User
 import br.com.inseguros.databinding.LoginFragmentBinding
+import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.utils.validMaterialEditTextFilled
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -39,7 +40,6 @@ class LoginFragment : BaseFragment() {
         autoLogin = prefs.getBoolean("auto_login", false)
 
         if (autoLogin) {
-            showLoading()
             mViewModel.checkUserLogged()
         } else {
             mViewModel.logoutCurrentUser()
@@ -78,7 +78,6 @@ class LoginFragment : BaseFragment() {
                     UserSession.setUserName(user.displayName)
                     UserSession.setUserEmail(user.userLogin)
                     navController.navigate(R.id.action_loginFragment_to_navigation_home)
-                    hideLoading()
                     mViewModel.getCurrentUserAuthLiveData().removeObserver(this)
                 }
             }

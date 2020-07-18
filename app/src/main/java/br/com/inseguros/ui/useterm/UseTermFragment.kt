@@ -24,7 +24,6 @@ class UseTermFragment : BaseFragment() {
         activity?.setContentView(binding.root)
         navController = Navigation.findNavController(view)
 
-        showLoading()
         setupListeners()
         setupObservers()
 
@@ -49,7 +48,6 @@ class UseTermFragment : BaseFragment() {
 
         mViewModel.getUseTermContent().observe(viewLifecycleOwner, object : Observer<String> {
             override fun onChanged(useTermContent: String?) {
-                hideLoading()
                 binding.useTermContentTv.text = useTermContent
                 mViewModel.getUseTermContent().removeObserver(this)
             }

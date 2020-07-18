@@ -5,7 +5,7 @@ import br.com.inseguros.data.DatabaseHandler
 import br.com.inseguros.data.dao.QuoteVehicleDAO
 import br.com.inseguros.data.repository.ParentRepository
 import br.com.inseguros.data.repository.QuoteVehicleRepository
-import br.com.inseguros.ui.LoginViewModel
+import br.com.inseguros.ui.login.LoginViewModel
 import br.com.inseguros.ui.historic.HistoricViewModel
 import br.com.inseguros.ui.home.HomeViewModel
 import br.com.inseguros.ui.messages.MessagesViewModel
@@ -44,7 +44,7 @@ val viewModelModules = module {
     viewModel { QuoteHouseViewModel() }
     viewModel { QuoteLifeViewModel() }
     viewModel { HistoricViewModel(get()) }
-    viewModel { LoginViewModel(get(), get()) }
+    viewModel { LoginViewModel(get(), get(), get()) }
     viewModel { UseTermViewModel(get()) }
     viewModel { SignUpViewModel(get(), get()) }
 }

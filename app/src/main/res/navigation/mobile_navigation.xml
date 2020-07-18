@@ -75,7 +75,7 @@
         tools:layout="@layout/quote_house_fragment"/>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="br.com.inseguros.ui.LoginFragment"
+        android:name="br.com.inseguros.ui.login.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/login_fragment" >
         <action
