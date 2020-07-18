@@ -75,4 +75,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_use_terms_msg">Por favor, leia e aceite os termos de uso para prosseguir.</string>
     <string name="processing_request_msg">Processando a requisição</string>
+    <string name="register_error_msg">Erro ao tentar registrar-se</string>
 </resources>

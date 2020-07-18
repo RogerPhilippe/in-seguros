@@ -6,105 +6,132 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="br.com.inseguros.ui.login.LoginFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="92dp"
-            android:layout_height="92dp"
-            app:srcCompat="@mipmap/ic_in_seguros_icon"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_in_seguros_label"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:layout_margin="12dp"/>
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/user_login_met"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email_hint"
-            app:met_textColorHint="@color/colorPrimaryDark"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="?colorAccent"
-            app:met_singleLineEllipsis="true" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/passwd_login_met"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/passwd_hint"
-            android:inputType="textPassword"
-            app:met_textColorHint="@color/colorPrimaryDark"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="?colorAccent"
-            app:met_singleLineEllipsis="true" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/loading_container"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="horizontal">
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <Button
-                android:id="@+id/cancel_login_btn"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/button"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="22dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="4dp"
-                android:text="@string/cancel_label"/>
-
-            <Button
-                android:id="@+id/enter_login_btn"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                style="@style/button"
-                android:layout_marginTop="22dp"
-                android:layout_marginBottom="22dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="20dp"
-                android:text="@string/enter_label"/>
-
-            </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/register_login_screen_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_margin="8dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dont_have_account_label"
-                android:textSize="16dp"
-                android:layout_marginEnd="6dp"
-                android:textColor="@color/colorPrimary"/>
-
-            <TextView
-                android:id="@+id/register_tv_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/register_label"
-                android:textColor="@color/colorPrimaryDark"/>
+            <include layout="@layout/include_loading"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/login_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:layout_width="92dp"
+                android:layout_height="92dp"
+                app:srcCompat="@mipmap/ic_in_seguros_icon"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_in_seguros_label"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:layout_margin="12dp"/>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/user_login_met"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_hint"
+                app:met_textColorHint="@color/colorPrimaryDark"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorAccent"
+                app:met_singleLineEllipsis="true" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/passwd_login_met"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/passwd_hint"
+                android:inputType="textPassword"
+                app:met_textColorHint="@color/colorPrimaryDark"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="?colorAccent"
+                app:met_singleLineEllipsis="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/cancel_login_btn"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/button"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/cancel_label"/>
+
+                <Button
+                    android:id="@+id/enter_login_btn"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    style="@style/button"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/enter_label"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/register_login_screen_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dont_have_account_label"
+                    android:textSize="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    android:id="@+id/register_tv_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_label"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

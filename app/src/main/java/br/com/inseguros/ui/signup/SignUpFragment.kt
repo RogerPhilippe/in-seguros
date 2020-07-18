@@ -48,6 +48,7 @@ class SignUpFragment : BaseFragment() {
 
             } else {
                 if (validateFieldsFilled()) {
+                    setupContainersVisible(false)
                     mViewModel.signUp(
                         User(
                             displayName = binding.userRegisterMet.text.toString(),
@@ -73,7 +74,10 @@ class SignUpFragment : BaseFragment() {
             override fun onChanged(saveStatus: SaveStatusEnum?) {
                 if (saveStatus == SaveStatusEnum.SUCCESS) {
                     navController.navigate(R.id.action_signUpFragment_to_navigation_home)
+                } else {
+                    getString(R.string.register_error_msg).makeErrorShortToast(mContext)
                 }
+                setupContainersVisible(true)
                 mViewModel.getSignUpStatus().removeObserver(this)
             }
         })
@@ -115,6 +119,17 @@ class SignUpFragment : BaseFragment() {
             errors.add("User Passwd")
 
         return errors.isEmpty()
+    }
+
+    private fun setupContainersVisible(contentContainerVisible: Boolean) {
+
+        if (contentContainerVisible) {
+            binding.signUpContainer.visibility = View.VISIBLE
+            binding.loadingContainer.visibility = View.GONE
+        } else {
+            binding.signUpContainer.visibility = View.GONE
+            binding.loadingContainer.visibility = View.VISIBLE
+        }
     }
 
 }

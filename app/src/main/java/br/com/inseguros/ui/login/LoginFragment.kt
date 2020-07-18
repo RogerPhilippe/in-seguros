@@ -40,6 +40,7 @@ class LoginFragment : BaseFragment() {
         autoLogin = prefs.getBoolean("auto_login", false)
 
         if (autoLogin) {
+            setupContainersView(false)
             mViewModel.checkUserLogged()
         } else {
             mViewModel.logoutCurrentUser()
@@ -55,6 +56,7 @@ class LoginFragment : BaseFragment() {
         binding.enterLoginBtn.setOnClickListener {
 
             if (validateFieldsFilled()) {
+                setupContainersView(false)
                 mViewModel.signInWithEmailAndPassword(
                     User(
                         userLogin =  binding.userLoginMet.text.toString(),
@@ -99,6 +101,17 @@ class LoginFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
+    }
+
+    private fun setupContainersView(contentContainerVisible: Boolean) {
+
+        if (contentContainerVisible) {
+            binding.loadingContainer.visibility = View.GONE
+            binding.loginContainer.visibility = View.VISIBLE
+        } else {
+            binding.loadingContainer.visibility = View.VISIBLE
+            binding.loginContainer.visibility = View.GONE
+        }
     }
 
 }
