@@ -28,7 +28,6 @@ class QuoteFragment : BaseFragment() {
         binding.quoteToolbar.title = toolBarTitle
 
         val items = AppSession.getMainSubMenuItems()
-
         val adapter = QuoteAdapter(items, this)
         binding.qutesRV.adapter = adapter
 

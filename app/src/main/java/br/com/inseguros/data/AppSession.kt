@@ -2,6 +2,7 @@ package br.com.inseguros.data
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import br.com.inseguros.data.enums.CacheStatusEnum
 import br.com.inseguros.data.model.MainMenu
 import br.com.inseguros.data.model.MainSubMenu
 import br.com.inseguros.utils.RemoteConfigUtils
@@ -12,6 +13,7 @@ object AppSession {
     private val mainMenuItems = mutableListOf<MainMenu>()
     private var mainSubMenuStatusLiveData = MutableLiveData<Boolean>()
     private val mainSubMenuItems = mutableListOf<MainSubMenu>()
+    private val cache = hashMapOf<String, Any>()
 
     fun setMainMenuItems() {
 
@@ -99,5 +101,19 @@ object AppSession {
 
     fun getMainSubMenuStatus() = mainSubMenuStatusLiveData
     fun getMainSubMenuItems() = mainSubMenuItems
+
+    fun setCacheValue(key: String, value: Any): CacheStatusEnum {
+        cache[key] = value
+        return CacheStatusEnum.SUCCESS
+    }
+
+    fun getCachedValue(key: String): Any? {
+        return cache[key]
+    }
+
+    fun removeCachedValue(key: String): CacheStatusEnum {
+        cache.remove(key)
+        return CacheStatusEnum.SUCCESS
+    }
 
 }

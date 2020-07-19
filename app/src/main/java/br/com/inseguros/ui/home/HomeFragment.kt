@@ -9,14 +9,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
+import br.com.inseguros.data.AppSession
 import br.com.inseguros.data.UserSession
-import br.com.inseguros.data.model.MainMenu
 import br.com.inseguros.databinding.FragmentHomeBinding
 import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.ui.settings.SettingsActivity
@@ -24,11 +22,8 @@ import br.com.inseguros.ui.settings.SettingsActivity
 class HomeFragment : BaseFragment() {
 
     override val layout = R.layout.fragment_home
-    private val items = mutableListOf<MainMenu>()
-    private lateinit var adapter: MainMenuAdapter
     private lateinit var binding: FragmentHomeBinding
     private lateinit var navController: NavController
-    private val mViewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,22 +33,21 @@ class HomeFragment : BaseFragment() {
         setHasOptionsMenu(true)
         navController = Navigation.findNavController(view)
 
-        adapter = MainMenuAdapter(items, this)
+        val items = AppSession.getMainMenuItems()
+        val adapter = MainMenuAdapter(items, this)
         binding.mainMenuRV.adapter = adapter
 
-        mViewModel.getMainMenuRemoteConfig()
-
         this.setupListeners()
-        this.setupObservers()
 
     }
 
     override fun onResume() {
         super.onResume()
         trackEvent("home_fragment", "onResume")
-        binding.userNameTV.text = if (UserSession.getUserName().isNotEmpty())
-            UserSession.getUserName()
-        else UserSession.getUserEmail()
+        binding.userNameTV.text =
+            if (UserSession.getUserName().isNotEmpty())
+                UserSession.getUserName()
+            else UserSession.getUserEmail()
     }
 
     private fun setupListeners() {
@@ -75,22 +69,6 @@ class HomeFragment : BaseFragment() {
             }
             false
         }
-
-    }
-
-    private fun setupObservers() {
-
-        mViewModel.getCurrentMainMenuItem().observe(viewLifecycleOwner, object : Observer<List<MainMenu>>{
-            override fun onChanged(mainMenuList: List<MainMenu>) {
-                if (!mainMenuList.isNullOrEmpty()) {
-                    trackEvent("main_menu_list_size", mainMenuList.size)
-                    items.clear()
-                    items.addAll(mainMenuList)
-                    adapter.notifyDataSetChanged()
-                }
-                mViewModel.getCurrentMainMenuItem().removeObserver(this)
-            }
-        })
 
     }
 

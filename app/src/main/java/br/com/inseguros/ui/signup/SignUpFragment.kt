@@ -6,8 +6,10 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
 import br.com.in_seguros_utils.makeErrorShortToast
 import br.com.inseguros.R
+import br.com.inseguros.data.AppSession
 import br.com.inseguros.data.UserSession
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.User
@@ -31,8 +33,10 @@ class SignUpFragment : BaseFragment() {
         activity?.setContentView(binding.root)
         navController = Navigation.findNavController(view)
 
-        setupListeners()
-        setupObservers()
+        this.setupListeners()
+        this.setupObservers()
+        this.checkCachedFields()
+        this.setupFieldsFormat()
 
     }
 
@@ -53,6 +57,7 @@ class SignUpFragment : BaseFragment() {
                         User(
                             displayName = binding.userRegisterMet.text.toString(),
                             userLogin = binding.emailRegisterMet.text.toString(),
+                            phone = binding.phoneNumberRegisterMet.text.toString(),
                             passWD = binding.passwdRegisterMet.text.toString()
                         )
                     )
@@ -61,9 +66,11 @@ class SignUpFragment : BaseFragment() {
         }
 
         binding.useTermRegisterContainer.setOnClickListener {
+            cacheFilledFields()
             navController.navigate(R.id.action_signUpFragment_to_useTermFragment)
         }
         binding.useTermsAcceptLa.setOnClickListener {
+            cacheFilledFields()
             navController.navigate(R.id.action_signUpFragment_to_useTermFragment)
         }
     }
@@ -130,6 +137,59 @@ class SignUpFragment : BaseFragment() {
             binding.signUpContainer.visibility = View.GONE
             binding.loadingContainer.visibility = View.VISIBLE
         }
+    }
+
+    private fun checkCachedFields() {
+
+        val userRegisterMetContent = AppSession.getCachedValue("userRegisterMet")
+        if (userRegisterMetContent != null && userRegisterMetContent is String) {
+            binding.userRegisterMet.setText(userRegisterMetContent)
+            AppSession.removeCachedValue("userRegisterMet")
+        }
+
+        val emailRegisterMetContent = AppSession.getCachedValue("emailRegisterMet")
+        if (emailRegisterMetContent != null && emailRegisterMetContent is String) {
+            binding.emailRegisterMet.setText(emailRegisterMetContent)
+            AppSession.removeCachedValue("emailRegisterMet")
+        }
+
+        val phoneNumberRegisterMetContent = AppSession.getCachedValue("phoneNumberRegisterMet")
+        if (phoneNumberRegisterMetContent != null && phoneNumberRegisterMetContent is String) {
+            binding.phoneNumberRegisterMet.setText(phoneNumberRegisterMetContent)
+            AppSession.removeCachedValue("phoneNumberRegisterMet")
+        }
+
+        val passwdRegisterMetContent = AppSession.getCachedValue("passwdRegisterMet")
+        if (passwdRegisterMetContent != null && passwdRegisterMetContent is String) {
+            binding.passwdRegisterMet.setText(passwdRegisterMetContent)
+            AppSession.removeCachedValue("passwdRegisterMet")
+        }
+    }
+
+    private fun cacheFilledFields() {
+
+        val userRegisterMetContent = binding.userRegisterMet.text.toString()
+        if (userRegisterMetContent.isNotEmpty())
+            AppSession.setCacheValue("userRegisterMet", userRegisterMetContent)
+
+        val emailRegisterMetContent = binding.emailRegisterMet.text.toString()
+        if (emailRegisterMetContent.isNotEmpty())
+            AppSession.setCacheValue("emailRegisterMet", emailRegisterMetContent)
+
+        val phoneNumberRegisterMetContent = binding.phoneNumberRegisterMet.text.toString()
+        if (phoneNumberRegisterMetContent.isNotEmpty())
+            AppSession.setCacheValue("phoneNumberRegisterMet", phoneNumberRegisterMetContent)
+
+        val passwdRegisterMetContent = binding.passwdRegisterMet.text.toString()
+        if (passwdRegisterMetContent.isNotEmpty())
+            AppSession.setCacheValue("passwdRegisterMet", passwdRegisterMetContent)
+    }
+
+    private fun setupFieldsFormat() {
+
+        // Phone
+        binding.phoneNumberRegisterMet
+            .addTextChangedListener(MascaraNumericaTextWatcher("(##) #####-####"))
     }
 
 }
