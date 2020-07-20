@@ -56,6 +56,8 @@ class QuoteGenericScreenViewModel(
             .addOnSuccessListener {
                 realtimeDatabase.reference
                     .child("new_quote_request")
+                    .child(UserSession.getUserID())
+                    .child("quote_id")
                     .setValue("${UserSession.getUserID()}|+|$quoteID")
                 currentSaveStatus.postValue(SaveStatusEnum.SUCCESS)
             }

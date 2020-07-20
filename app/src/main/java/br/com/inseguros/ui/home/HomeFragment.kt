@@ -1,5 +1,6 @@
 package br.com.inseguros.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.preference.PreferenceManager
 import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
 import br.com.inseguros.data.AppSession
@@ -24,6 +26,7 @@ class HomeFragment : BaseFragment() {
     override val layout = R.layout.fragment_home
     private lateinit var binding: FragmentHomeBinding
     private lateinit var navController: NavController
+    private lateinit var mContext: Context
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +41,8 @@ class HomeFragment : BaseFragment() {
         binding.mainMenuRV.adapter = adapter
 
         this.setupListeners()
+
+        this.checkDefaultConfigExists()
 
     }
 
@@ -89,6 +94,18 @@ class HomeFragment : BaseFragment() {
     fun navControllerNavigateTo(id: Int, toolBarTitle: String) {
         val bundle = bundleOf("tool_bar_title" to toolBarTitle)
         navController.navigate(id, bundle)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
+
+    private fun checkDefaultConfigExists() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
+        val containsAutoLogin = prefs.contains("auto_login")
+        if (!containsAutoLogin)
+            prefs.edit().putBoolean("auto_login", true).apply()
     }
 
 }
