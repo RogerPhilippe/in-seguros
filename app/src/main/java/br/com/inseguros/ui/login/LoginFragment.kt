@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
+import br.com.in_seguros_utils.makeErrorShortToast
 import br.com.inseguros.R
 import br.com.inseguros.data.UserSession
 import br.com.inseguros.data.model.User
@@ -76,11 +77,12 @@ class LoginFragment : BaseFragment() {
         mViewModel.getCurrentUserAuthLiveData().observe(viewLifecycleOwner, object : Observer<User> {
             override fun onChanged(user: User) {
                 if (user.userID.isNotEmpty()) {
-                    UserSession.setUserID(user.userID)
-                    UserSession.setUserName(user.displayName)
-                    UserSession.setUserEmail(user.userLogin)
+                    UserSession.fillUser(user)
                     navController.navigate(R.id.action_loginFragment_to_navigation_home)
                     mViewModel.getCurrentUserAuthLiveData().removeObserver(this)
+                } else {
+                    "Erro ao fazer login".makeErrorShortToast(mContext)
+                    setupContainersView(true)
                 }
             }
         })

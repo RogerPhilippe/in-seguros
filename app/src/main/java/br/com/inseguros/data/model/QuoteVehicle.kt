@@ -8,6 +8,7 @@ import java.io.Serializable
 @Entity(tableName = "tb_quote_vehicle")
 data class QuoteVehicle(
     @get:Exclude @PrimaryKey(autoGenerate = true) var id: Long = 0,
+    var userID: String = "",
     var fullName: String = "",
     var cpf: String = "",
     var quoteDate: Long = 0,

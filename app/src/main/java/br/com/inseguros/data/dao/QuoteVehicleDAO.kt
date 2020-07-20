@@ -12,8 +12,11 @@ interface QuoteVehicleDAO {
     @Update
     suspend fun update(item: QuoteVehicle)
 
-    @Query("SELECT * FROM tb_quote_vehicle WHERE status IN(1)")
+    @Query("SELECT * FROM tb_quote_vehicle WHERE status IN (1)")
     suspend fun findAll(): List<QuoteVehicle>
+
+    @Query("SELECT * FROM tb_quote_vehicle WHERE userID IN (:userID) AND status IN (1)")
+    suspend fun findAllByUserID(userID: String): List<QuoteVehicle>
 
     @Delete
     suspend fun delete(item: QuoteVehicle)

@@ -3,11 +3,12 @@ package br.com.inseguros.di
 import android.content.Context
 import br.com.inseguros.data.DatabaseHandler
 import br.com.inseguros.data.dao.QuoteVehicleDAO
-import br.com.inseguros.data.repository.ParentRepository
+import br.com.inseguros.data.dao.UserDAO
 import br.com.inseguros.data.repository.QuoteVehicleRepository
-import br.com.inseguros.ui.login.LoginViewModel
+import br.com.inseguros.data.repository.UserRepository
 import br.com.inseguros.ui.historic.HistoricViewModel
 import br.com.inseguros.ui.home.HomeViewModel
+import br.com.inseguros.ui.login.LoginViewModel
 import br.com.inseguros.ui.messages.MessagesViewModel
 import br.com.inseguros.ui.quotes.genericscreen.QuoteGenericScreenViewModel
 import br.com.inseguros.ui.quotes.house.QuoteHouseViewModel
@@ -32,6 +33,14 @@ private fun quoteVehicleRepository(dao: QuoteVehicleDAO): QuoteVehicleRepository
     return QuoteVehicleRepository(dao)
 }
 
+private fun userDAO(db: DatabaseHandler): UserDAO {
+    return db.userDAO()
+}
+
+private fun userRepository(dao: UserDAO): UserRepository {
+    return UserRepository(dao)
+}
+
 private fun firebaseAuth() = FirebaseAuth.getInstance()
 
 private fun firebaseDB() = FirebaseFirestore.getInstance()
@@ -44,9 +53,9 @@ val viewModelModules = module {
     viewModel { QuoteHouseViewModel() }
     viewModel { QuoteLifeViewModel() }
     viewModel { HistoricViewModel(get()) }
-    viewModel { LoginViewModel(get(), get(), get()) }
+    viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { UseTermViewModel(get()) }
-    viewModel { SignUpViewModel(get(), get()) }
+    viewModel { SignUpViewModel(get(), get(), get()) }
 }
 
 val dbModule = module {
@@ -55,10 +64,12 @@ val dbModule = module {
 
 val daoModule = module {
     single { quoteVehicleDAO(get()) }
+    single { userDAO(get()) }
 }
 
 val repositoryModule = module {
-    single<ParentRepository> { quoteVehicleRepository(get()) }
+    single { quoteVehicleRepository(get()) }
+    single { userRepository(get()) }
 }
 
 val firebaseModules = module {

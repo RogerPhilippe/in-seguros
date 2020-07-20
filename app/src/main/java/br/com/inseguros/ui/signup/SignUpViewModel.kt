@@ -5,12 +5,15 @@ import androidx.lifecycle.ViewModel
 import br.com.inseguros.data.UserSession
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.User
+import br.com.inseguros.data.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.runBlocking
 
 class SignUpViewModel(
     private val auth: FirebaseAuth,
-    private val db: FirebaseFirestore
+    private val db: FirebaseFirestore,
+    private val mUserRepository: UserRepository
 ) : ViewModel() {
 
     private val signUpStatus = MutableLiveData<SaveStatusEnum>()
@@ -22,9 +25,7 @@ class SignUpViewModel(
         ).addOnCompleteListener {
             if (it.isSuccessful) {
                 user.userID = auth.currentUser?.uid ?: ""
-                UserSession.setUserEmail(user.userLogin)
-                UserSession.setUserName(user.displayName)
-                UserSession.setUserID(user.userID)
+                UserSession.fillUser(user)
                 saveUser(user)
             }
         }
@@ -35,8 +36,16 @@ class SignUpViewModel(
         db.collection("users")
             .document(user.userID)
             .set(user)
-            .addOnSuccessListener { signUpStatus.postValue(SaveStatusEnum.SUCCESS) }
+            .addOnSuccessListener { localSaveUser(user) }
             .addOnFailureListener { signUpStatus.postValue(SaveStatusEnum.ERROR) }
+    }
+
+    private fun localSaveUser(user: User) = runBlocking {
+
+        if (mUserRepository.insert(user) > -1)
+            signUpStatus.postValue(SaveStatusEnum.SUCCESS)
+        else
+            signUpStatus.postValue(SaveStatusEnum.ERROR)
     }
 
     fun getSignUpStatus() = signUpStatus

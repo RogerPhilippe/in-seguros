@@ -5,10 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import br.com.inseguros.data.dao.QuoteVehicleDAO
+import br.com.inseguros.data.dao.UserDAO
 import br.com.inseguros.data.model.QuoteVehicle
+import br.com.inseguros.data.model.User
 
 @Database(
-    entities = [QuoteVehicle::class],
+    entities = [QuoteVehicle::class, User::class],
     version = 1,
     exportSchema = false
 )
@@ -16,6 +18,7 @@ import br.com.inseguros.data.model.QuoteVehicle
 abstract class DatabaseHandler: RoomDatabase() {
 
     abstract fun quoteVehicleDAO(): QuoteVehicleDAO
+    abstract fun userDAO(): UserDAO
 
     companion object {
 

@@ -1,13 +1,13 @@
-package br.com.inseguros.ui
+package br.com.inseguros.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.preference.PreferenceManager
 import br.com.inseguros.R
 import br.com.inseguros.data.AppSession
+import br.com.inseguros.ui.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 

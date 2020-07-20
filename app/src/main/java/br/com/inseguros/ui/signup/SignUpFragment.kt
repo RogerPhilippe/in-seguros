@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.preference.PreferenceManager
 import br.com.concrete.canarinho.watcher.MascaraNumericaTextWatcher
 import br.com.in_seguros_utils.makeErrorShortToast
 import br.com.inseguros.R
@@ -13,6 +14,7 @@ import br.com.inseguros.data.AppSession
 import br.com.inseguros.data.UserSession
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.User
+import br.com.inseguros.data.utils.Constants
 import br.com.inseguros.databinding.SignUpFragmentBinding
 import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.utils.validMaterialEditTextFilled
@@ -53,14 +55,21 @@ class SignUpFragment : BaseFragment() {
             } else {
                 if (validateFieldsFilled()) {
                     setupContainersVisible(false)
-                    mViewModel.signUp(
-                        User(
-                            displayName = binding.userRegisterMet.text.toString(),
-                            userLogin = binding.emailRegisterMet.text.toString(),
-                            phone = binding.phoneNumberRegisterMet.text.toString(),
-                            passWD = binding.passwdRegisterMet.text.toString()
+                    val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
+                    val newToken = prefs.getString(Constants.NEW_TOKEN_KEY, "")
+                    if (!newToken.isNullOrEmpty()) {
+                        mViewModel.signUp(
+                            User(
+                                displayName = binding.userRegisterMet.text.toString(),
+                                userLogin = binding.emailRegisterMet.text.toString(),
+                                phone = binding.phoneNumberRegisterMet.text.toString(),
+                                messagingService = newToken,
+                                passWD = binding.passwdRegisterMet.text.toString()
+                            )
                         )
-                    )
+                    } else {
+                        "Err-ntn01 - Erro Interno".makeErrorShortToast(mContext)
+                    }
                 }
             }
         }

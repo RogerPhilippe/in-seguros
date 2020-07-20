@@ -2,15 +2,12 @@ package br.com.inseguros.ui.quotes.genericscreen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.data.enums.SaveStatusEnum
-import br.com.inseguros.data.repository.ParentRepository
+import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.data.repository.QuoteVehicleRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
-class QuoteGenericScreenViewModel(private val repository: ParentRepository) : ViewModel() {
+class QuoteGenericScreenViewModel(private val quoteVehicleRepository: QuoteVehicleRepository) : ViewModel() {
 
     private var currentQuoteVehicleLiveData = MutableLiveData<QuoteVehicle>()
     private var currentSaveStatus = MutableLiveData<SaveStatusEnum>()
@@ -35,7 +32,7 @@ class QuoteGenericScreenViewModel(private val repository: ParentRepository) : Vi
     // *********************************************************************************************
 
     fun insertQuoteVehicle() = runBlocking {
-        val id = (repository as QuoteVehicleRepository).insert(currentQuoteVehicleLiveData.value!!)
+        val id = quoteVehicleRepository.insert(currentQuoteVehicleLiveData.value!!)
         if (id > -1) {
             currentSaveStatus.postValue(SaveStatusEnum.SUCCESS)
         }

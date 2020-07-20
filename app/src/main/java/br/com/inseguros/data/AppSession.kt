@@ -14,6 +14,7 @@ object AppSession {
     private var mainSubMenuStatusLiveData = MutableLiveData<Boolean>()
     private val mainSubMenuItems = mutableListOf<MainSubMenu>()
     private val cache = hashMapOf<String, Any>()
+    private val currentMessagingServiceNewToken = MutableLiveData<String>()
 
     fun setMainMenuItems() {
 
@@ -115,5 +116,11 @@ object AppSession {
         cache.remove(key)
         return CacheStatusEnum.SUCCESS
     }
+
+    fun setCurrentMessagingServiceNewToken(token: String) {
+        this.currentMessagingServiceNewToken.postValue(token)
+    }
+
+    fun getCurrentMessagingServiceNewToken() = this.currentMessagingServiceNewToken
 
 }
