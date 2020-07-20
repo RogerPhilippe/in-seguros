@@ -12,7 +12,7 @@ data class QuoteVehicle(
     var fullName: String = "",
     var cpf: String = "",
     var quoteDate: Long = 0,
-    var genre: Char = ' ',
+    var genre: String = "",
     var birthDate: Long = 0,
     var civilState: String = "",
     var vehicleType: String = "",

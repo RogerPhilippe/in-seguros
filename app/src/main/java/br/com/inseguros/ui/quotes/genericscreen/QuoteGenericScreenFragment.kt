@@ -135,6 +135,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
         }
 
         binding.saveGenericBtn.setOnClickListener {
+            showContent(false)
             persistRegister()
         }
 
@@ -143,13 +144,13 @@ class QuoteGenericScreenFragment : BaseFragment() {
     private fun persistRegister() {
 
         val genreChar = when(binding.quoteGenericRg.checkedRadioButtonId) {
-            R.id.male_generic_rb -> 'M'
-            R.id.female_generic_rb -> 'F'
-            else -> ' '
+            R.id.male_generic_rb -> "M"
+            R.id.female_generic_rb -> "F"
+            else -> ""
         }
         val civilState = getCivilStateSelected()
         val vehicleBrand = binding.vehicleBrandGenericSpn.selectedItem?.toString()
-        if (genreChar == ' ') {
+        if (genreChar.isEmpty()) {
             "Selecione o genero".makeErrorShortToast(requireContext())
         } else if (civilState.isEmpty()) {
             "Selecione o estado civíl".makeErrorShortToast(requireContext())
@@ -218,10 +219,10 @@ class QuoteGenericScreenFragment : BaseFragment() {
 
     }
 
-    private fun setRadioBox(genre: Char) {
+    private fun setRadioBox(genre: String) {
         when(genre) {
-            'M' -> binding.maleGenericRb.isChecked = true
-            'F' -> binding.femaleGenericRb.isChecked = true
+            "M" -> binding.maleGenericRb.isChecked = true
+            "F" -> binding.femaleGenericRb.isChecked = true
         }
     }
 
@@ -257,6 +258,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
                     popBackStack()
                 } else {
                     "Erro ao tentar Salvar".makeErrorShortToast(requireContext())
+                    showContent(true)
                 }
             }
 
@@ -358,6 +360,16 @@ class QuoteGenericScreenFragment : BaseFragment() {
         else
             this.popBackStack()
 
+    }
+
+    private fun showContent(showContent: Boolean) {
+        if (showContent) {
+            binding.genericQuoteContent.visibility = View.VISIBLE
+            binding.loadingContainer.visibility = View.GONE
+        } else {
+            binding.genericQuoteContent.visibility = View.GONE
+            binding.loadingContainer.visibility = View.VISIBLE
+        }
     }
 
     private fun popBackStack() = navController.popBackStack()

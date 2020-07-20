@@ -2,12 +2,17 @@ package br.com.inseguros.ui.quotes.genericscreen
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.inseguros.data.UserSession
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.data.repository.QuoteVehicleRepository
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.runBlocking
 
-class QuoteGenericScreenViewModel(private val quoteVehicleRepository: QuoteVehicleRepository) : ViewModel() {
+class QuoteGenericScreenViewModel(
+    private val quoteVehicleRepository: QuoteVehicleRepository,
+    private val db: FirebaseFirestore
+) : ViewModel() {
 
     private var currentQuoteVehicleLiveData = MutableLiveData<QuoteVehicle>()
     private var currentSaveStatus = MutableLiveData<SaveStatusEnum>()
@@ -34,11 +39,20 @@ class QuoteGenericScreenViewModel(private val quoteVehicleRepository: QuoteVehic
     fun insertQuoteVehicle() = runBlocking {
         val id = quoteVehicleRepository.insert(currentQuoteVehicleLiveData.value!!)
         if (id > -1) {
-            currentSaveStatus.postValue(SaveStatusEnum.SUCCESS)
+            saveQuoteInFireStore(currentQuoteVehicleLiveData.value!!, id)
         }
         else {
             currentSaveStatus.postValue(SaveStatusEnum.ERROR)
         }
+    }
+
+    private fun saveQuoteInFireStore(quoteVehicle: QuoteVehicle, quoteID: Long) {
+
+        db.collection("quotes")
+            .document("${UserSession.getUserID()}|+|$quoteID")
+            .set(quoteVehicle)
+            .addOnSuccessListener { currentSaveStatus.postValue(SaveStatusEnum.SUCCESS) }
+            .addOnFailureListener { currentSaveStatus.postValue(SaveStatusEnum.ERROR) }
     }
 
 }

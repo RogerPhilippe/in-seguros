@@ -49,7 +49,7 @@ val viewModelModules = module {
     viewModel { HomeViewModel() }
     viewModel { QuotesReceivedViewModel() }
     viewModel { MessagesViewModel() }
-    viewModel { QuoteGenericScreenViewModel(get()) }
+    viewModel { QuoteGenericScreenViewModel(get(), get()) }
     viewModel { QuoteHouseViewModel() }
     viewModel { QuoteLifeViewModel() }
     viewModel { HistoricViewModel(get()) }
