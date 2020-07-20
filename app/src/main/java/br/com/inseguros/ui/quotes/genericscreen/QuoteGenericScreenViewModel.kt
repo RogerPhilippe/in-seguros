@@ -6,12 +6,14 @@ import br.com.inseguros.data.UserSession
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.data.repository.QuoteVehicleRepository
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.runBlocking
 
 class QuoteGenericScreenViewModel(
     private val quoteVehicleRepository: QuoteVehicleRepository,
-    private val db: FirebaseFirestore
+    private val db: FirebaseFirestore,
+    private val realtimeDatabase: FirebaseDatabase
 ) : ViewModel() {
 
     private var currentQuoteVehicleLiveData = MutableLiveData<QuoteVehicle>()
@@ -51,7 +53,12 @@ class QuoteGenericScreenViewModel(
         db.collection("quotes")
             .document("${UserSession.getUserID()}|+|$quoteID")
             .set(quoteVehicle)
-            .addOnSuccessListener { currentSaveStatus.postValue(SaveStatusEnum.SUCCESS) }
+            .addOnSuccessListener {
+                realtimeDatabase.reference
+                    .child("new_quote_request")
+                    .setValue("${UserSession.getUserID()}|+|$quoteID")
+                currentSaveStatus.postValue(SaveStatusEnum.SUCCESS)
+            }
             .addOnFailureListener { currentSaveStatus.postValue(SaveStatusEnum.ERROR) }
     }
 

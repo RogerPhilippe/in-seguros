@@ -17,6 +17,7 @@ import br.com.inseguros.ui.quotesreceived.QuotesReceivedViewModel
 import br.com.inseguros.ui.signup.SignUpViewModel
 import br.com.inseguros.ui.useterm.UseTermViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -45,11 +46,13 @@ private fun firebaseAuth() = FirebaseAuth.getInstance()
 
 private fun firebaseDB() = FirebaseFirestore.getInstance()
 
+private fun realtimeDatabase() = FirebaseDatabase.getInstance()
+
 val viewModelModules = module {
     viewModel { HomeViewModel() }
     viewModel { QuotesReceivedViewModel() }
     viewModel { MessagesViewModel() }
-    viewModel { QuoteGenericScreenViewModel(get(), get()) }
+    viewModel { QuoteGenericScreenViewModel(get(), get(), get()) }
     viewModel { QuoteHouseViewModel() }
     viewModel { QuoteLifeViewModel() }
     viewModel { HistoricViewModel(get()) }
@@ -75,4 +78,5 @@ val repositoryModule = module {
 val firebaseModules = module {
     single { firebaseAuth() }
     single { firebaseDB() }
+    single { realtimeDatabase() }
 }
