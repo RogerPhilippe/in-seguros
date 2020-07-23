@@ -1,4 +1,4 @@
-package br.com.inseguros.data
+package br.com.inseguros.data.sessions
 
 import br.com.inseguros.data.model.User
 
@@ -23,7 +23,8 @@ object UserSession {
     fun setUseTermSignUpState(state: Boolean) {
         mUseTermSignUpState = state
     }
-    fun getUseTermSignUpState() = mUseTermSignUpState
+    fun getUseTermSignUpState() =
+        mUseTermSignUpState
 
     fun resetUserSession() {
         mUserName = ""
@@ -42,7 +43,8 @@ object UserSession {
         mMessagingToken = messagingToken
     }
 
-    fun getMessagingToken() = mMessagingToken
+    fun getMessagingToken() =
+        mMessagingToken
 
     fun fillUser(user: User) {
         if (mUserID.isEmpty())

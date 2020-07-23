@@ -6,7 +6,7 @@ import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import br.com.inseguros.R
-import br.com.inseguros.data.AppSession
+import br.com.inseguros.data.sessions.AppSession
 import br.com.inseguros.ui.MainActivity
 
 class SplashActivity : AppCompatActivity() {

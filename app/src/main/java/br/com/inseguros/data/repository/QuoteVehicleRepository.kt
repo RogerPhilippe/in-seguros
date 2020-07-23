@@ -9,6 +9,7 @@ class QuoteVehicleRepository(private val mDAO: QuoteVehicleDAO) {
     suspend fun update(quoteVehicle: QuoteVehicle) = mDAO.update(quoteVehicle)
     suspend fun findAll() = mDAO.findAll()
     suspend fun findAllByUserID(userID: String) = mDAO.findAllByUserID(userID)
+    suspend fun findQuoteByID(quoteID: Long) = mDAO.findQuoteByID(quoteID)
     suspend fun delete(quoteVehicle: QuoteVehicle) = mDAO.delete(quoteVehicle)
 
 }

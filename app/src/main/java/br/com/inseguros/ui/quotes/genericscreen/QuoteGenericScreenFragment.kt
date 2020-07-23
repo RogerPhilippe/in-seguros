@@ -17,7 +17,7 @@ import br.com.in_seguros_utils.convertDateToString
 import br.com.in_seguros_utils.makeErrorShortToast
 import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
-import br.com.inseguros.data.UserSession
+import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.data.enums.CivilStateEnum
 import br.com.inseguros.data.enums.QuoteTypeEnum
 import br.com.inseguros.data.enums.SaveStatusEnum

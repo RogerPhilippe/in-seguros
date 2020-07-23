@@ -2,7 +2,7 @@ package br.com.inseguros.ui.signup
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.inseguros.data.UserSession
+import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.User
 import br.com.inseguros.data.repository.UserRepository

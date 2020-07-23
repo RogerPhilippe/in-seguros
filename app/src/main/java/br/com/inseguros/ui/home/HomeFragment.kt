@@ -10,16 +10,24 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
 import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
-import br.com.inseguros.data.AppSession
-import br.com.inseguros.data.UserSession
+import br.com.inseguros.data.enums.QuoteTypeEnum
+import br.com.inseguros.data.sessions.AppSession
+import br.com.inseguros.data.sessions.UserSession
+import br.com.inseguros.data.utils.Constants
 import br.com.inseguros.databinding.FragmentHomeBinding
+import br.com.inseguros.events.NotifyQuotationReceivedEvent
 import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.ui.settings.SettingsActivity
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment() {
 
@@ -27,6 +35,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var navController: NavController
     private lateinit var mContext: Context
+    private val mViewModel: HomeViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,8 +50,8 @@ class HomeFragment : BaseFragment() {
         binding.mainMenuRV.adapter = adapter
 
         this.setupListeners()
-
-        this.checkDefaultConfigExists()
+        this.setupObservers()
+        this.checkDefaultConfig()
 
     }
 
@@ -53,9 +62,11 @@ class HomeFragment : BaseFragment() {
             if (UserSession.getUserName().isNotEmpty())
                 UserSession.getUserName()
             else UserSession.getUserEmail()
+
+        this.notifyQuotationReceived()
     }
 
-    private fun setupListeners() {
+        private fun setupListeners() {
 
         // main_bottom_navigation
         binding.mainBottomNavigation.setOnNavigationItemSelectedListener {
@@ -74,6 +85,15 @@ class HomeFragment : BaseFragment() {
             }
             false
         }
+
+    }
+
+    private fun setupObservers() {
+
+        mViewModel.getCurrentOPStatus().observe(viewLifecycleOwner, Observer {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
+            prefs.edit().putString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, "").apply()
+        })
 
     }
 
@@ -101,11 +121,35 @@ class HomeFragment : BaseFragment() {
         mContext = context
     }
 
-    private fun checkDefaultConfigExists() {
+    private fun checkDefaultConfig() {
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
         val containsAutoLogin = prefs.contains("auto_login")
         if (!containsAutoLogin)
             prefs.edit().putBoolean("auto_login", true).apply()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun notifyQuotationReceivedEvent(event: NotifyQuotationReceivedEvent) {
+        this.notifyQuotationReceived()
+    }
+
+    private fun notifyQuotationReceived() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
+        val quoteIDStr = prefs.getString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, "")
+        if (!quoteIDStr.isNullOrEmpty())
+            mViewModel.updateQuoteStatus(quoteIDStr, QuoteTypeEnum.PROPOSAL_SENT.value)
     }
 
 }

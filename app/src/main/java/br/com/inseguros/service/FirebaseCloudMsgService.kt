@@ -2,10 +2,13 @@ package br.com.inseguros.service
 
 import android.util.Log
 import androidx.preference.PreferenceManager
-import br.com.inseguros.data.AppSession
+import br.com.inseguros.data.sessions.AppSession
 import br.com.inseguros.data.utils.Constants
+import br.com.inseguros.events.NotifyQuotationReceivedEvent
+import br.com.inseguros.utils.QuotationProposalNotification
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import org.greenrobot.eventbus.EventBus
 
 class FirebaseCloudMsgService: FirebaseMessagingService() {
 
@@ -24,6 +27,20 @@ class FirebaseCloudMsgService: FirebaseMessagingService() {
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
         val dataSize = p0.data.size
+
+        if (dataSize > 0) {
+
+            EventBus.getDefault().post(NotifyQuotationReceivedEvent())
+
+            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+            prefs.edit().putString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, p0.data["quote_id"]).apply()
+
+            QuotationProposalNotification.createNotification(
+                this,
+                Pair(p0.data["organization"] ?: "", p0.data["bodyText"] ?: "")
+            )
+        }
+
         Log.e("MSG_RECEIVED", dataSize.toString())
     }
 

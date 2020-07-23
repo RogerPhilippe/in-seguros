@@ -3,10 +3,10 @@ package br.com.inseguros.ui.historic
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import br.com.in_seguros_utils.convertDateToString
 import br.com.inseguros.R
 import br.com.inseguros.data.enums.QuoteTypeEnum
 import br.com.inseguros.data.model.QuoteVehicle
-import br.com.in_seguros_utils.convertDateToString
 import kotlinx.android.synthetic.main.historic_item_layout.view.*
 import java.util.*
 
@@ -28,6 +28,7 @@ class HistoricAdapter(
             holder.bindVehicleRegisterNum(this.vehicleRegisterNum)
             val quoteStatus = when(this.quoteStatus) {
                 QuoteTypeEnum.UNDER_ANALYSIS.value -> parent.getString(R.string.under_analysis_quote)
+                QuoteTypeEnum.PROPOSAL_SENT.value -> parent.getString(R.string.proposal_sent_quote)
                 QuoteTypeEnum.CANCELED.value -> parent.getString(R.string.canceled_quote_status_label)
                 QuoteTypeEnum.APPROVED.value -> parent.getString(R.string.approved_quote_status_label)
                 QuoteTypeEnum.FINISHED.value -> parent.getString(R.string.finished_quote_status_label)
@@ -35,15 +36,22 @@ class HistoricAdapter(
             }
             holder.bindVehicleQuoteStatus(quoteStatus)
 
-            if (this.quoteStatus != QuoteTypeEnum.CANCELED.value) {
-
-                holder.itemView.historicEditBtn.setOnClickListener { parent.editQuote(this) }
-                holder.itemView.historicCancelBtn.setOnClickListener { parent.cancelQuote(this) }
-                holder.itemView.historicEditBtn.isEnabled = true
-                holder.itemView.historicCancelBtn.isEnabled = true
-            } else {
-                holder.itemView.historicEditBtn.isEnabled = false
-                holder.itemView.historicCancelBtn.isEnabled = false
+            when (this.quoteStatus) {
+                QuoteTypeEnum.UNDER_ANALYSIS.value -> {
+                    holder.itemView.historicEditBtn.setOnClickListener { parent.editQuote(this) }
+                    holder.itemView.historicCancelBtn.setOnClickListener { parent.cancelQuote(this) }
+                    holder.itemView.historicEditBtn.isEnabled = true
+                    holder.itemView.historicCancelBtn.isEnabled = true
+                }
+                QuoteTypeEnum.PROPOSAL_SENT.value -> {
+                    holder.itemView.historicCancelBtn.setOnClickListener { parent.cancelQuote(this) }
+                    holder.itemView.historicEditBtn.isEnabled = false
+                    holder.itemView.historicCancelBtn.isEnabled = true
+                }
+                else -> {
+                    holder.itemView.historicEditBtn.isEnabled = false
+                    holder.itemView.historicCancelBtn.isEnabled = false
+                }
             }
 
         }

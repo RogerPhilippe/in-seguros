@@ -1,4 +1,4 @@
-package br.com.inseguros.data
+package br.com.inseguros.data.sessions
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -97,11 +97,15 @@ object AppSession {
 
     }
 
-    fun getMainMenuStatus() = mainMenuStatusLiveData
-    fun getMainMenuItems() = mainMenuItems
+    fun getMainMenuStatus() =
+        mainMenuStatusLiveData
+    fun getMainMenuItems() =
+        mainMenuItems
 
-    fun getMainSubMenuStatus() = mainSubMenuStatusLiveData
-    fun getMainSubMenuItems() = mainSubMenuItems
+    fun getMainSubMenuStatus() =
+        mainSubMenuStatusLiveData
+    fun getMainSubMenuItems() =
+        mainSubMenuItems
 
     fun setCacheValue(key: String, value: Any): CacheStatusEnum {
         cache[key] = value
@@ -118,9 +122,10 @@ object AppSession {
     }
 
     fun setCurrentMessagingServiceNewToken(token: String) {
-        this.currentMessagingServiceNewToken.postValue(token)
+        currentMessagingServiceNewToken.postValue(token)
     }
 
-    fun getCurrentMessagingServiceNewToken() = this.currentMessagingServiceNewToken
+    fun getCurrentMessagingServiceNewToken() =
+        currentMessagingServiceNewToken
 
 }

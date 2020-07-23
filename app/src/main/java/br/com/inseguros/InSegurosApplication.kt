@@ -1,7 +1,7 @@
 package br.com.inseguros
 
 import android.app.Application
-import br.com.inseguros.data.UserSession
+import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.di.*
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore

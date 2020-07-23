@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
 import br.com.inseguros.data.enums.QuoteTypeEnum
 import br.com.inseguros.data.model.MainSubMenu
@@ -18,7 +19,6 @@ import br.com.inseguros.ui.BaseFragment
 import br.com.inseguros.ui.utils.SwipeToDeleteCallback
 import br.com.inseguros.utils.DialogFragmentUtil
 import br.com.inseguros.utils.SnackBarUtil
-import br.com.in_seguros_utils.makeShortToast
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -33,11 +33,6 @@ class HistoricFragment : BaseFragment() {
     private lateinit var adapter: HistoricAdapter
     private val items = mutableListOf<QuoteVehicle>()
     private val itemsToRemove = mutableListOf<QuoteVehicle>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        EventBus.getDefault().register(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -134,6 +129,16 @@ class HistoricFragment : BaseFragment() {
             itemsToRemove.removeAt(itemsToRemove.size - 1)
             adapter.undoItemRemoved(position, item)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onDestroy() {

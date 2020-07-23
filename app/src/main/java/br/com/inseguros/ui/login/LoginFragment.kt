@@ -9,7 +9,7 @@ import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
 import br.com.in_seguros_utils.makeErrorShortToast
 import br.com.inseguros.R
-import br.com.inseguros.data.UserSession
+import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.data.model.User
 import br.com.inseguros.databinding.LoginFragmentBinding
 import br.com.inseguros.ui.BaseFragment

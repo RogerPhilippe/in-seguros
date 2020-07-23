@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import br.com.inseguros.R
-import br.com.inseguros.data.UserSession
+import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.databinding.UseTermFragmentBinding
 import br.com.inseguros.ui.BaseFragment
 import org.koin.android.viewmodel.ext.android.viewModel
