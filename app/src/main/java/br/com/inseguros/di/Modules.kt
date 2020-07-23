@@ -2,8 +2,10 @@ package br.com.inseguros.di
 
 import android.content.Context
 import br.com.inseguros.data.DatabaseHandler
+import br.com.inseguros.data.dao.QuotationProposalDAO
 import br.com.inseguros.data.dao.QuoteVehicleDAO
 import br.com.inseguros.data.dao.UserDAO
+import br.com.inseguros.data.repository.QuotationProposalRepository
 import br.com.inseguros.data.repository.QuoteVehicleRepository
 import br.com.inseguros.data.repository.UserRepository
 import br.com.inseguros.ui.historic.HistoricViewModel
@@ -21,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+import kotlin.math.sin
 
 private fun database(context: Context): DatabaseHandler {
     return DatabaseHandler.getDatabase(context)
@@ -42,6 +45,14 @@ private fun userRepository(dao: UserDAO): UserRepository {
     return UserRepository(dao)
 }
 
+private fun quotationProposalDAO(db: DatabaseHandler): QuotationProposalDAO {
+    return db.quotationProposalDAO()
+}
+
+private fun quotationProposalRepository(dao: QuotationProposalDAO): QuotationProposalRepository {
+    return QuotationProposalRepository(dao)
+}
+
 private fun firebaseAuth() = FirebaseAuth.getInstance()
 
 private fun firebaseDB() = FirebaseFirestore.getInstance()
@@ -49,8 +60,8 @@ private fun firebaseDB() = FirebaseFirestore.getInstance()
 private fun realtimeDatabase() = FirebaseDatabase.getInstance()
 
 val viewModelModules = module {
-    viewModel { HomeViewModel(get()) }
-    viewModel { QuotesReceivedViewModel() }
+    viewModel { HomeViewModel(get(), get(), get()) }
+    viewModel { QuotesReceivedViewModel(get()) }
     viewModel { MessagesViewModel() }
     viewModel { QuoteGenericScreenViewModel(get(), get(), get()) }
     viewModel { QuoteHouseViewModel() }
@@ -68,11 +79,13 @@ val dbModule = module {
 val daoModule = module {
     single { quoteVehicleDAO(get()) }
     single { userDAO(get()) }
+    single { quotationProposalDAO(get()) }
 }
 
 val repositoryModule = module {
     single { quoteVehicleRepository(get()) }
     single { userRepository(get()) }
+    single { quotationProposalRepository(get()) }
 }
 
 val firebaseModules = module {

@@ -34,6 +34,7 @@ class FirebaseCloudMsgService: FirebaseMessagingService() {
 
             val prefs = PreferenceManager.getDefaultSharedPreferences(this)
             prefs.edit().putString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, p0.data["quote_id"]).apply()
+            prefs.edit().putString(Constants.NEW_PROPOSAL_ID, p0.data["proposal_id"]).apply()
 
             QuotationProposalNotification.createNotification(
                 this,

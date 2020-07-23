@@ -4,13 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import br.com.inseguros.data.dao.QuotationProposalDAO
 import br.com.inseguros.data.dao.QuoteVehicleDAO
 import br.com.inseguros.data.dao.UserDAO
+import br.com.inseguros.data.model.QuotationProposal
 import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.data.model.User
 
 @Database(
-    entities = [QuoteVehicle::class, User::class],
+    entities = [QuoteVehicle::class, User::class, QuotationProposal::class],
     version = 1,
     exportSchema = false
 )
@@ -19,6 +21,7 @@ abstract class DatabaseHandler: RoomDatabase() {
 
     abstract fun quoteVehicleDAO(): QuoteVehicleDAO
     abstract fun userDAO(): UserDAO
+    abstract fun quotationProposalDAO(): QuotationProposalDAO
 
     companion object {
 

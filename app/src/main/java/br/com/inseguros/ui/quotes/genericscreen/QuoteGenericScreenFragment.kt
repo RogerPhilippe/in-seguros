@@ -17,13 +17,13 @@ import br.com.in_seguros_utils.convertDateToString
 import br.com.in_seguros_utils.makeErrorShortToast
 import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
-import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.data.enums.CivilStateEnum
 import br.com.inseguros.data.enums.QuoteTypeEnum
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.enums.VehicleTypeEnum
 import br.com.inseguros.data.model.MainSubMenu
 import br.com.inseguros.data.model.QuoteVehicle
+import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.databinding.QuoteGenericScreenFragmentBinding
 import br.com.inseguros.events.RefreshHistoricListEvent
 import br.com.inseguros.ui.BaseFragment
@@ -166,6 +166,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
                 this?.id = if (editMode) quoteVehicleItemToEdit.id else 0L
                 this?.userID = UserSession.getUserID()
                 this?.fullName = binding.fullNameGenericMet.text.toString()
+                    .toUpperCase(Locale.getDefault())
                 this?.cpf = binding.cpfGenericMet.text.toString()
                 this?.birthDate = convertDateToLong(binding.birthGenericMet.text.toString())
                 this?.genre = genreChar
@@ -173,14 +174,17 @@ class QuoteGenericScreenFragment : BaseFragment() {
                 this?.vehicleType = vehicleType!!
                 this?.vehicleBrand = vehicleBrand
                 this?.vehicleModel = binding.vehicleModelNameGenericMet.text.toString()
+                    .toUpperCase(Locale.getDefault())
                 this?.vehicleYearManufacture = binding.vehicleYeaManufacturerMet.text.toString()
                 this?.vehicleModelYear = binding.vehicleModelYearMet.text.toString()
                 this?.vehicleLicenceNumber = binding.vehicleLicenceNumberGenericMet.text.toString()
-                this?.vehicleLicenceTime = convertDateToLong(binding.vehicleLicenceTimeGenericMet.text.toString())
+                this?.vehicleLicenceTime =
+                    convertDateToLong(binding.vehicleLicenceTimeGenericMet.text.toString())
                 this?.overnightCEP = binding.vehicleOvernightZipGenericMet.text.toString()
                 this?.quoteDate = Calendar.getInstance().timeInMillis
                 this?.quoteStatus = QuoteTypeEnum.UNDER_ANALYSIS.value
                 this?.vehicleRegisterNum = binding.vehicleRegisterNumMet.text.toString()
+                    .toUpperCase(Locale.getDefault())
                 this?.status = true
             }
 

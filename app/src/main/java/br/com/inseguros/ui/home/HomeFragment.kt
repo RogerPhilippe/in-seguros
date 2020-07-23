@@ -93,6 +93,7 @@ class HomeFragment : BaseFragment() {
         mViewModel.getCurrentOPStatus().observe(viewLifecycleOwner, Observer {
             val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
             prefs.edit().putString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, "").apply()
+            prefs.edit().putString(Constants.NEW_PROPOSAL_ID, "").apply()
         })
 
     }
@@ -148,8 +149,9 @@ class HomeFragment : BaseFragment() {
     private fun notifyQuotationReceived() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
         val quoteIDStr = prefs.getString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, "")
-        if (!quoteIDStr.isNullOrEmpty())
-            mViewModel.updateQuoteStatus(quoteIDStr, QuoteTypeEnum.PROPOSAL_SENT.value)
+        val proposalID = prefs.getString(Constants.NEW_PROPOSAL_ID, "")
+        if (!quoteIDStr.isNullOrEmpty() && !proposalID.isNullOrEmpty() )
+            mViewModel.updateQuoteStatus(quoteIDStr, proposalID, QuoteTypeEnum.PROPOSAL_SENT.value)
     }
 
 }
