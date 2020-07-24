@@ -1,19 +1,23 @@
 package br.com.inseguros.ui.home
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.preference.PreferenceManager
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.QuotationProposal
 import br.com.inseguros.data.repository.QuotationProposalRepository
 import br.com.inseguros.data.repository.QuoteVehicleRepository
+import br.com.inseguros.data.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.runBlocking
 
 class HomeViewModel(
     private val quoteVehicleRepository: QuoteVehicleRepository,
     private val quotationProposalRepository: QuotationProposalRepository,
-    private val db: FirebaseFirestore
+    private val db: FirebaseFirestore,
+    private val mContext: Context
 ) : ViewModel() {
 
     private val currentOPStatus = MutableLiveData<SaveStatusEnum>()
@@ -52,9 +56,11 @@ class HomeViewModel(
                 if (it.exists()) {
                     val quotationProposal = QuotationProposal(
                         proposalID,
+                        it["companyIcon"] as String,
                         it["companyName"] as String,
                         it["companySite"] as String,
                         it["companyLocation"] as String,
+                        it["insuranceCoverage"] as String,
                         it["contact"] as String,
                         it["contactEmail"] as String,
                         it["contactPhone"] as String,
@@ -76,6 +82,9 @@ class HomeViewModel(
     private fun saveQuotationProposalInLocalDB(quotationProposal: QuotationProposal) = runBlocking {
 
         quotationProposalRepository.insert(quotationProposal)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
+        prefs.edit().putString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, "").apply()
+        prefs.edit().putString(Constants.NEW_PROPOSAL_ID, "").apply()
         currentOPStatus.postValue(SaveStatusEnum.SUCCESS)
 
     }

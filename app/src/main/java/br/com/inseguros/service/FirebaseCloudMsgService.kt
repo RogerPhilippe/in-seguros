@@ -38,7 +38,7 @@ class FirebaseCloudMsgService: FirebaseMessagingService() {
 
             QuotationProposalNotification.createNotification(
                 this,
-                Pair(p0.data["organization"] ?: "", p0.data["bodyText"] ?: "")
+                Pair(p0.data["title"] ?: "", p0.data["bodyText"] ?: "")
             )
         }
 

@@ -50,7 +50,6 @@ class HomeFragment : BaseFragment() {
         binding.mainMenuRV.adapter = adapter
 
         this.setupListeners()
-        this.setupObservers()
         this.checkDefaultConfig()
 
     }
@@ -85,16 +84,6 @@ class HomeFragment : BaseFragment() {
             }
             false
         }
-
-    }
-
-    private fun setupObservers() {
-
-        mViewModel.getCurrentOPStatus().observe(viewLifecycleOwner, Observer {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(mContext)
-            prefs.edit().putString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, "").apply()
-            prefs.edit().putString(Constants.NEW_PROPOSAL_ID, "").apply()
-        })
 
     }
 

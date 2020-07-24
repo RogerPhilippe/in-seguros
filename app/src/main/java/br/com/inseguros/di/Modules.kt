@@ -60,7 +60,7 @@ private fun firebaseDB() = FirebaseFirestore.getInstance()
 private fun realtimeDatabase() = FirebaseDatabase.getInstance()
 
 val viewModelModules = module {
-    viewModel { HomeViewModel(get(), get(), get()) }
+    viewModel { HomeViewModel(get(), get(), get(), get()) }
     viewModel { QuotesReceivedViewModel(get()) }
     viewModel { MessagesViewModel() }
     viewModel { QuoteGenericScreenViewModel(get(), get(), get()) }

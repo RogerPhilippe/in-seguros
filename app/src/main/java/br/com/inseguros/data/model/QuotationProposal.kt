@@ -7,9 +7,11 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "tb_quotation_proposal")
 data class QuotationProposal(
     @PrimaryKey val id: String = "",
+    val companyIcon: String = "",
     val companyName: String = "",
     val companySite: String = "",
     val companyLocation: String = "",
+    val insuranceCoverage: String = "",
     val contact: String = "",
     val contactEmail: String = "",
     val contactPhone: String = "",

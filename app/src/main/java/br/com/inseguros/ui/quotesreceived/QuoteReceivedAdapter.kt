@@ -1,5 +1,9 @@
 package br.com.inseguros.ui.quotesreceived
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +19,16 @@ class QuoteReceivedAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(items[position]) {
+
+            val decodedString = Base64.decode(companyIcon, Base64.DEFAULT)
+            val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+
+            holder.bindCompanyIcon(decodedByte)
             holder.bindCompanyName(companyName)
             holder.bindVehicleModelAndYear(vehicleModelNameAndFacYear)
+            holder.bindCoverage(insuranceCoverage)
             holder.bindValue(proposalValue)
+
         }
     }
 
@@ -27,6 +38,9 @@ class QuoteReceivedAdapter(
         LayoutInflater.from(parent.context).inflate(R.layout.quote_received_list_item_layout, parent, false)
     ) {
 
+        fun bindCompanyIcon(img: Bitmap) = with(itemView) {
+            quote_received_company_icon_iv.setImageBitmap(img)
+        }
         fun bindCompanyName(companyName: String) = with(itemView) {
             quote_received_company_name_tv.text = companyName
         }
@@ -36,14 +50,10 @@ class QuoteReceivedAdapter(
         fun bindCoverage(coverage: String) = with(itemView) {
             quote_received_coverage_tv.text = coverage
         }
+        @SuppressLint("SetTextI18n")
         fun bindValue(value: String) = with(itemView) {
             quote_received_value_tv.text = "R$ $value"
         }
-
-        /**
-         *  quote_received_company_icon_iv
-         *
-         */
 
     }
 
