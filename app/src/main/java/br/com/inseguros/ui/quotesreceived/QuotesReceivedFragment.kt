@@ -26,8 +26,7 @@ class QuotesReceivedFragment : BaseFragment() {
         val toolBarTitle = arguments?.get("tool_bar_title") as String
         binding.quotesReceivedToolbar.title = toolBarTitle
 
-        // quotes_received_rv
-        mAdapter = QuoteReceivedAdapter(items)
+        mAdapter = QuoteReceivedAdapter(items, this)
         binding.quotesReceivedRv.adapter = mAdapter
 
         mViewModel.getQuotations()
@@ -58,6 +57,12 @@ class QuotesReceivedFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         trackEvent("quote_received_fragment", "onResume")
+    }
+
+    fun makeDetailsDialog(quotationProposal: QuotationProposal) {
+
+        ContactDialogFragment(quotationProposal)
+            .show(requireActivity().supportFragmentManager, "details_fragment")
     }
 
 }

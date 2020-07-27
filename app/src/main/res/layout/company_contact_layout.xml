@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/companyDetailsIV"
+        android:layout_width="94dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/companyDetailsCompanyNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/companyDetailsIV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/companyDetailsCompanyContactTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/company_details_contact"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/companyDetailsCompanyNameTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/companyDetailsCallBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/button"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:drawableStart="@drawable/ic_phone_24_dp"
+        app:layout_constraintTop_toBottomOf="@id/companyDetailsCompanyContactTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Ligar"/>
+
+    <Button
+        android:id="@+id/companyDetailsEmailBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/button"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:drawableStart="@drawable/ic_email_24_dp"
+        app:layout_constraintTop_toBottomOf="@id/companyDetailsCallBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Enviar Email"/>
+
+    <Button
+        android:id="@+id/companyDetailsSiteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/button"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:drawableStart="@drawable/ic_link_24_dp"
+        app:layout_constraintTop_toBottomOf="@id/companyDetailsEmailBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Visitar Site"/>
+
+    <Button
+        android:id="@+id/companyDetailsMapBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/button"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:drawableStart="@drawable/ic_map_24_dp"
+        app:layout_constraintTop_toBottomOf="@id/companyDetailsSiteBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Ver no mapa"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

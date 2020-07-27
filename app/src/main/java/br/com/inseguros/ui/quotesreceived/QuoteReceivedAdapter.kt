@@ -1,6 +1,5 @@
 package br.com.inseguros.ui.quotesreceived
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
@@ -12,7 +11,8 @@ import br.com.inseguros.data.model.QuotationProposal
 import kotlinx.android.synthetic.main.quote_received_list_item_layout.view.*
 
 class QuoteReceivedAdapter(
-    private val items: List<QuotationProposal>
+    private val items: List<QuotationProposal>,
+    private val parent: QuotesReceivedFragment
 ) : RecyclerView.Adapter<QuoteReceivedAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent)
@@ -28,6 +28,10 @@ class QuoteReceivedAdapter(
             holder.bindVehicleModelAndYear(vehicleModelNameAndFacYear)
             holder.bindCoverage(insuranceCoverage)
             holder.bindValue(proposalValue)
+
+            holder.itemView.quote_received_contact_btn.setOnClickListener {
+                parent.makeDetailsDialog(this)
+            }
 
         }
     }
@@ -50,9 +54,8 @@ class QuoteReceivedAdapter(
         fun bindCoverage(coverage: String) = with(itemView) {
             quote_received_coverage_tv.text = coverage
         }
-        @SuppressLint("SetTextI18n")
         fun bindValue(value: String) = with(itemView) {
-            quote_received_value_tv.text = "R$ $value"
+            quote_received_value_tv.text = resources.getString(R.string.currency_symbol, value)
         }
 
     }
