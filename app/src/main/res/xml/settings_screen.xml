@@ -16,6 +16,11 @@
             android:summary="Receber notificações push."
             android:defaultValue="true"/>
 
+        <Preference
+            app:key="settings_sync"
+            app:title="Sincronizar"
+            app:summary="Baixar dados da nuvem"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="Informações do app">
