@@ -3,6 +3,7 @@ package br.com.inseguros.ui.settings
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.inseguros.data.enums.SaveStatusEnum
+import br.com.inseguros.data.model.QuotationProposal
 import br.com.inseguros.data.model.QuoteVehicle
 import br.com.inseguros.data.repository.QuotationProposalRepository
 import br.com.inseguros.data.repository.QuoteVehicleRepository
@@ -23,8 +24,9 @@ class SettingsViewModel(
         db.collection("quotes").whereEqualTo("userID", UserSession.getUserID())
             .get()
             .addOnSuccessListener {
-                if (!it.isEmpty) {
-                    it.forEach { quote ->
+                if (!it.isEmpty && it.documents.isNotEmpty()) {
+                    val documents = it.documents
+                    documents.forEach { quote ->
                         saveVehicleQuoteRecovered(
                             QuoteVehicle(
                                 userID = quote["userID"] as String,
@@ -48,19 +50,48 @@ class SettingsViewModel(
                             )
                         )
                     }
-                }
-                getQuotationsReceivedFromFirebase()
+                    getQuotationsReceivedFromFirebase()
+                } else { currentSyncStatusLiveData.postValue(SaveStatusEnum.ERROR) }
+
             }
             .addOnFailureListener { currentSyncStatusLiveData.postValue(SaveStatusEnum.ERROR) }
     }
 
     private fun getQuotationsReceivedFromFirebase() {
 
-        currentSyncStatusLiveData.postValue(SaveStatusEnum.SUCCESS)
+        db.collection("quotation_proposal").whereEqualTo("userID", UserSession.getUserID())
+            .get()
+            .addOnSuccessListener {
+                if (!it.isEmpty && it.documents.isNotEmpty()) {
+                    val documents = it.documents
+                    documents.forEach { document ->
+                        saveQuotationProposal(
+                            QuotationProposal(
+                                id = document.id,
+                                companyIcon = document["companyIcon"] as String,
+                                companyLocation = document["companyLocation"] as String,
+                                companyName = document["companyName"] as String,
+                                companySite = document["companySite"] as String,
+                                contact = document["contact"] as String,
+                                contactEmail = document["contactEmail"] as String,
+                                contactPhone = document["contactPhone"] as String,
+                                insuranceCoverage = document["insuranceCoverage"] as String,
+                                proposalDate = document["proposalDate"] as String,
+                                proposalValue = document["proposalValue"] as String,
+                                userID = document["userID"] as String,
+                                vehicleModelNameAndFacYear = document["vehicleModelNameAndFacYear"] as String
+                            )
+                        )
+                    }
+                    getMessages()
+                } else { currentSyncStatusLiveData.postValue(SaveStatusEnum.ERROR) }
+            }
+            .addOnFailureListener { currentSyncStatusLiveData.postValue(SaveStatusEnum.ERROR) }
     }
 
     private fun getMessages() {
 
+        currentSyncStatusLiveData.postValue(SaveStatusEnum.SUCCESS)
     }
 
     fun getCurrentSyncStatus() = currentSyncStatusLiveData
@@ -68,6 +99,11 @@ class SettingsViewModel(
     private fun saveVehicleQuoteRecovered(quoteVehicle: QuoteVehicle) = runBlocking {
 
         quoteVehicleRepository.insert(quoteVehicle)
+    }
+
+    private fun saveQuotationProposal(quotationProposal: QuotationProposal) = runBlocking {
+
+        quotationProposalRepository.insert(quotationProposal)
     }
 
 }

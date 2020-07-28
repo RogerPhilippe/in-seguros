@@ -56,18 +56,18 @@ class HomeViewModel(
                 if (it.exists()) {
                     val quotationProposal = QuotationProposal(
                         proposalID,
-                        it["companyIcon"] as String,
-                        it["companyName"] as String,
-                        it["companySite"] as String,
-                        it["companyLocation"] as String,
-                        it["insuranceCoverage"] as String,
-                        it["contact"] as String,
-                        it["contactEmail"] as String,
-                        it["contactPhone"] as String,
-                        it["proposalDate"] as String,
-                        it["proposalValue"] as String,
-                        it["vehicleModelNameAndFacYear"] as String,
-                        true
+                        userID = it["userID"] as String,
+                        companyIcon = it["companyIcon"] as String,
+                        companyName = it["companyName"] as String,
+                        companySite = it["companySite"] as String,
+                        companyLocation = it["companyLocation"] as String,
+                        insuranceCoverage = it["insuranceCoverage"] as String,
+                        contact = it["contact"] as String,
+                        contactEmail = it["contactEmail"] as String,
+                        contactPhone = it["contactPhone"] as String,
+                        proposalDate = it["proposalDate"] as String,
+                        proposalValue = it["proposalValue"] as String,
+                        vehicleModelNameAndFacYear = it["vehicleModelNameAndFacYear"] as String
                     )
                     saveQuotationProposalInLocalDB(quotationProposal)
                 }

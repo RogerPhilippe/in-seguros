@@ -12,7 +12,7 @@ interface QuotationProposalDAO {
     @Update
     suspend fun update(quotationProposal: QuotationProposal)
 
-    @Query("SELECT * FROM tb_quotation_proposal WHERE status IN (1)")
+    @Query("SELECT * FROM tb_quotation_proposal")
     suspend fun findAll(): List<QuotationProposal>
 
     @Delete
