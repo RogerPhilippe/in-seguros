@@ -2,12 +2,8 @@ package br.com.inseguros.di
 
 import android.content.Context
 import br.com.inseguros.data.DatabaseHandler
-import br.com.inseguros.data.dao.QuotationProposalDAO
-import br.com.inseguros.data.dao.QuoteVehicleDAO
-import br.com.inseguros.data.dao.UserDAO
-import br.com.inseguros.data.repository.QuotationProposalRepository
-import br.com.inseguros.data.repository.QuoteVehicleRepository
-import br.com.inseguros.data.repository.UserRepository
+import br.com.inseguros.data.dao.*
+import br.com.inseguros.data.repository.*
 import br.com.inseguros.ui.historic.HistoricViewModel
 import br.com.inseguros.ui.home.HomeViewModel
 import br.com.inseguros.ui.login.LoginViewModel
@@ -24,6 +20,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
+
+// *************************************************************************************************
+// * Database Methods
+// *************************************************************************************************
 
 private fun database(context: Context): DatabaseHandler {
     return DatabaseHandler.getDatabase(context)
@@ -53,11 +53,35 @@ private fun quotationProposalRepository(dao: QuotationProposalDAO): QuotationPro
     return QuotationProposalRepository(dao)
 }
 
+private fun messageDAO(db: DatabaseHandler): MessageDAO {
+    return db.messageDAO()
+}
+
+private fun messageRepository(dao: MessageDAO): MessageRepository {
+    return MessageRepository(dao)
+}
+
+private fun messageContentDAO(db: DatabaseHandler): MessageContentDAO {
+    return db.messageContentDAO()
+}
+
+private fun messageContentRepository(dao: MessageContentDAO): MessageContentRepository {
+    return MessageContentRepository(dao)
+}
+
+// *************************************************************************************************
+// * Firebase Methods
+// *************************************************************************************************
+
 private fun firebaseAuth() = FirebaseAuth.getInstance()
 
 private fun firebaseDB() = FirebaseFirestore.getInstance()
 
 private fun realtimeDatabase() = FirebaseDatabase.getInstance()
+
+// *************************************************************************************************
+// * Module Methods
+// *************************************************************************************************
 
 val viewModelModules = module {
     viewModel { HomeViewModel(get(), get(), get(), get()) }
@@ -66,11 +90,11 @@ val viewModelModules = module {
     viewModel { QuoteGenericScreenViewModel(get(), get(), get()) }
     viewModel { QuoteHouseViewModel() }
     viewModel { QuoteLifeViewModel() }
-    viewModel { HistoricViewModel(get()) }
+    viewModel { HistoricViewModel(get(), get()) }
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { UseTermViewModel(get()) }
     viewModel { SignUpViewModel(get(), get(), get()) }
-    viewModel { SettingsViewModel(get(), get(), get()) }
+    viewModel { SettingsViewModel(get(), get(), get(), get(), get()) }
 }
 
 val dbModule = module {
@@ -81,12 +105,16 @@ val daoModule = module {
     single { quoteVehicleDAO(get()) }
     single { userDAO(get()) }
     single { quotationProposalDAO(get()) }
+    single { messageDAO(get()) }
+    single { messageContentDAO(get()) }
 }
 
 val repositoryModule = module {
     single { quoteVehicleRepository(get()) }
     single { userRepository(get()) }
     single { quotationProposalRepository(get()) }
+    single { messageRepository(get()) }
+    single { messageContentRepository(get()) }
 }
 
 val firebaseModules = module {

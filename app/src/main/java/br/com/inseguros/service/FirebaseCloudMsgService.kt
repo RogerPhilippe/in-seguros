@@ -30,8 +30,6 @@ class FirebaseCloudMsgService: FirebaseMessagingService() {
 
         if (dataSize > 0) {
 
-            EventBus.getDefault().post(NotifyQuotationReceivedEvent())
-
             val prefs = PreferenceManager.getDefaultSharedPreferences(this)
             prefs.edit().putString(Constants.NEW_QUOTATION_PROPOSAL_RECEIVED, p0.data["quote_id"]).apply()
             prefs.edit().putString(Constants.NEW_PROPOSAL_ID, p0.data["proposal_id"]).apply()
@@ -43,6 +41,9 @@ class FirebaseCloudMsgService: FirebaseMessagingService() {
         }
 
         Log.e("MSG_RECEIVED", dataSize.toString())
+
+        EventBus.getDefault().post(NotifyQuotationReceivedEvent())
+
     }
 
 }

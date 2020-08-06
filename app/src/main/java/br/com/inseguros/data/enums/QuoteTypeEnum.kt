@@ -5,5 +5,6 @@ enum class QuoteTypeEnum(val value: String) {
     PROPOSAL_SENT("proposal_sent"),
     CANCELED("canceled"),
     APPROVED("approved"),
-    FINISHED("finished")
+    FINISHED("finished"),
+    DELETED("deleted")
 }
