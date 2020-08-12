@@ -80,4 +80,6 @@
     <string name="company_details_contact">Contato: %1$s</string>
     <string name="currency_symbol">R$ %1$s</string>
     <string name="cloud_sync_confirm_msg">Deseja sincronizar com a nuvem?</string>
+    <string name="forgot_passwd_label">Esqueceu a senha?</string>
+    <string name="reset_passwd_label">REDEFINIR</string>
 </resources>

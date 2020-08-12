@@ -1,8 +1,10 @@
 package br.com.inseguros.ui.quotesreceived
 
+import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +13,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import br.com.inseguros.R
 import br.com.inseguros.data.model.QuotationProposal
@@ -57,8 +60,17 @@ class ContactDialogFragment(private val quotationProposal: QuotationProposal) : 
     private fun setupListeners() {
 
         companyDetailsCallBtn.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_CALL, Uri
-                .parse("tel:${quotationProposal.contactPhone}")))
+
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE)
+                == PackageManager.PERMISSION_GRANTED) {
+
+                startActivity(
+                    Intent(
+                        Intent.ACTION_CALL, Uri
+                            .parse("tel:${quotationProposal.contactPhone}")
+                    )
+                )
+            }
         }
 
         companyDetailsEmailBtn.setOnClickListener {

@@ -129,6 +129,31 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/forgot_login_screen_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_margin="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forgot_passwd_label"
+                    android:textSize="16dp"
+                    android:layout_marginEnd="6dp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    android:id="@+id/forgot_tv_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reset_passwd_label"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
 

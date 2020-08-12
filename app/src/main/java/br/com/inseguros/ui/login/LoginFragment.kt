@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
 import br.com.in_seguros_utils.makeErrorShortToast
+import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
 import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.data.model.User
@@ -69,6 +70,14 @@ class LoginFragment : BaseFragment() {
 
         binding.registerTvBtn.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_signUpFragment)
+        }
+
+        binding.forgotTvBtn.setOnClickListener {
+
+            if (binding.userLoginMet.text.toString().isEmpty())
+                "Por favor, digite o email.".makeShortToast(requireContext())
+            else
+                mViewModel.forgotPassword(binding.userLoginMet.text.toString())
         }
     }
 

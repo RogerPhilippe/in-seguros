@@ -93,7 +93,7 @@ val viewModelModules = module {
     viewModel { HistoricViewModel(get(), get()) }
     viewModel { LoginViewModel(get(), get(), get(), get()) }
     viewModel { UseTermViewModel(get()) }
-    viewModel { SignUpViewModel(get(), get(), get()) }
+    viewModel { SignUpViewModel(get(), get(), get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get(), get(), get(), get()) }
 }
 

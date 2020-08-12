@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.preference.PreferenceManager
 import br.com.in_seguros_utils.makeErrorShortToast
+import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.User
@@ -38,14 +39,18 @@ class LoginViewModel(
 
     fun signInWithEmailAndPassword(user: User) {
 
-        auth.signInWithEmailAndPassword(user.userLogin, user.passWD).addOnCompleteListener {
-            if (it.isSuccessful) {
-                getUser(auth.currentUser?.uid ?: "")
-            } else {
-                "Usuário e/ou senha errada!".makeErrorShortToast(context)
-                currentUserAuthLiveData.postValue(User())
+        auth.signInWithEmailAndPassword(user.userLogin, user.passWD)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    getUser(auth.currentUser?.uid ?: "")
+                } else {
+                    "Usuário e/ou senha errada!".makeErrorShortToast(context)
+                    currentUserAuthLiveData.postValue(User())
+                }
             }
-        }
+            .addOnFailureListener {
+                "Erro ao tentar fazer login.\n${it.message}".makeErrorShortToast(context)
+            }
     }
 
     private fun getUser(uid: String) = runBlocking {
@@ -64,7 +69,8 @@ class LoginViewModel(
 
         db.collection("users")
             .document(uid)
-            .get().addOnSuccessListener { doc ->
+            .get()
+            .addOnSuccessListener { doc ->
                 if (doc != null && doc.data?.isNotEmpty() == true) {
                     val user = User(
                         userID = doc.data!!["userID"] as String,
@@ -74,7 +80,14 @@ class LoginViewModel(
                         messagingService = doc.data!!["messagingService"] as String
                     )
                     saveUserRecoveredByFirebase(user)
+                } else {
+                    "Erro ao buscar usuário.".makeErrorShortToast(context)
+                    currentUserAuthLiveData.postValue(User())
                 }
+            }
+            .addOnFailureListener {
+                "Erro ao buscar coleção.\n${it.message}".makeErrorShortToast(context)
+                currentUserAuthLiveData.postValue(User())
             }
     }
 
@@ -109,5 +122,16 @@ class LoginViewModel(
     }
 
     fun getCurrentUserAuthLiveData() = currentUserAuthLiveData
+
+    fun forgotPassword(email: String) {
+
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener {
+                "Email enviado. Por favor, verifique sua caixa de entreda.".makeShortToast(context)
+            }
+            .addOnFailureListener {
+                "Erro ao tentar enviar email de recuperação de senha!".makeErrorShortToast(context)
+            }
+    }
 
 }

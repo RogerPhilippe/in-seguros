@@ -3,6 +3,7 @@ package br.com.inseguros.ui.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Process
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -10,7 +11,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
@@ -28,6 +28,8 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.system.exitProcess
+
 
 class HomeFragment : BaseFragment() {
 
@@ -51,6 +53,12 @@ class HomeFragment : BaseFragment() {
 
         this.setupListeners()
         this.checkDefaultConfig()
+
+        // Check malformed menus.
+        if (AppSession.getMainMenuItems().size < 2 || AppSession.getMainSubMenuItems().size < 2) {
+            "O App será reiniciado!".makeShortToast(requireContext())
+            restartApp()
+        }
 
     }
 
@@ -141,6 +149,16 @@ class HomeFragment : BaseFragment() {
         val proposalID = prefs.getString(Constants.NEW_PROPOSAL_ID, "")
         if (!quoteIDStr.isNullOrEmpty() && !proposalID.isNullOrEmpty() )
             mViewModel.updateQuoteStatus(quoteIDStr, proposalID, QuoteTypeEnum.PROPOSAL_SENT.value)
+    }
+
+    private fun restartApp() {
+
+        val intent = requireActivity().baseContext.packageManager
+            .getLaunchIntentForPackage(requireActivity().baseContext.packageName)
+        intent!!.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        Process.killProcess(Process.myPid())
+        exitProcess(0)
     }
 
 }
