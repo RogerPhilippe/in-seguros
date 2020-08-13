@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.preference.PreferenceManager
+import br.com.inseguros.R
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.QuotationProposal
 import br.com.inseguros.data.repository.QuotationProposalRepository
@@ -39,12 +40,12 @@ class HomeViewModel(
                 findInFireStoreQuotationProposal(proposalID)
             }
             else {
-                Log.e("Err: uqs-01", "Erro ao buscar cotação id: $quoteID")
+                Log.e("Err: uqs-01", "${mContext.getString(R.string.error_find_quotation)} $quoteID")
                 currentOPStatus.postValue(SaveStatusEnum.ERROR)
             }
 
         } catch (ex: Exception) {
-            Log.e("Err: uqs-02", ex.message?:"Erro desconhecido.")
+            Log.e("Err: uqs-02", ex.message?:"${mContext.getString(R.string.unknown_error)}")
             currentOPStatus.postValue(SaveStatusEnum.ERROR)
         }
     }

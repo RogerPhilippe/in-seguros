@@ -56,7 +56,7 @@ class HomeFragment : BaseFragment() {
 
         // Check malformed menus.
         if (AppSession.getMainMenuItems().size < 2 || AppSession.getMainSubMenuItems().size < 2) {
-            "O App será reiniciado!".makeShortToast(requireContext())
+            getString(R.string.app_will_be_restart).makeShortToast(requireContext())
             restartApp()
         }
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.preference.PreferenceManager
 import br.com.in_seguros_utils.makeErrorShortToast
 import br.com.in_seguros_utils.makeShortToast
+import br.com.inseguros.R
 import br.com.inseguros.data.sessions.UserSession
 import br.com.inseguros.data.enums.SaveStatusEnum
 import br.com.inseguros.data.model.User
@@ -44,12 +45,12 @@ class LoginViewModel(
                 if (it.isSuccessful) {
                     getUser(auth.currentUser?.uid ?: "")
                 } else {
-                    "Usuário e/ou senha errada!".makeErrorShortToast(context)
+                    context.getString(R.string.user_or_pw_wrong).makeErrorShortToast(context)
                     currentUserAuthLiveData.postValue(User())
                 }
             }
             .addOnFailureListener {
-                "Erro ao tentar fazer login.\n${it.message}".makeErrorShortToast(context)
+                "${context.getString(R.string.login_error)}\n${it.message}".makeErrorShortToast(context)
             }
     }
 
@@ -81,12 +82,12 @@ class LoginViewModel(
                     )
                     saveUserRecoveredByFirebase(user)
                 } else {
-                    "Erro ao buscar usuário.".makeErrorShortToast(context)
+                    context.getString(R.string.error_find_user).makeErrorShortToast(context)
                     currentUserAuthLiveData.postValue(User())
                 }
             }
             .addOnFailureListener {
-                "Erro ao buscar coleção.\n${it.message}".makeErrorShortToast(context)
+                "${context.getString(R.string.error_find_quotation)}\n${it.message}".makeErrorShortToast(context)
                 currentUserAuthLiveData.postValue(User())
             }
     }
@@ -127,10 +128,10 @@ class LoginViewModel(
 
         auth.sendPasswordResetEmail(email)
             .addOnCompleteListener {
-                "Email enviado. Por favor, verifique sua caixa de entreda.".makeShortToast(context)
+                context.getString(R.string.wrong_email).makeShortToast(context)
             }
             .addOnFailureListener {
-                "Erro ao tentar enviar email de recuperação de senha!".makeErrorShortToast(context)
+                context.getString(R.string.error_reset_pw).makeErrorShortToast(context)
             }
     }
 

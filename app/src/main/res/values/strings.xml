@@ -25,7 +25,6 @@
     <string name="no_btn_label">Não</string>
     <string name="exit_confirmation_discard_changes">Deseja sair e descartar as alterações?</string>
     <string name="select_option">Selecione uma opção</string>
-    <string name="vehicle_licence_time_calculator_dialog_title">Calculadora de meses</string>
     <string name="apply_label">Aplicar</string>
     <string name="year_hint">Ano(s)</string>
     <string name="month_hint">Mês(es)</string>
@@ -71,8 +70,6 @@
     <string name="use_term_content">Bla bla bla...</string>
     <string name="reject_btn_label">Rejeitar</string>
     <string name="accept_btn_label">Aceitar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_use_terms_msg">Por favor, leia e aceite os termos de uso para prosseguir.</string>
     <string name="processing_request_msg">Processando a requisição</string>
     <string name="register_error_msg">Erro ao tentar registrar-se</string>
@@ -82,4 +79,30 @@
     <string name="cloud_sync_confirm_msg">Deseja sincronizar com a nuvem?</string>
     <string name="forgot_passwd_label">Esqueceu a senha?</string>
     <string name="reset_passwd_label">REDEFINIR</string>
+    <string name="quotation">Cotação</string>
+    <string name="edit">Editar</string>
+    <string name="cancel_quotation_msg">Deseja cancelar a quotação</string>
+    <string name="remove_item">Deseja excluir o item?</string>
+    <string name="app_will_be_restart">O App será reiniciado!</string>
+    <string name="error_find_quotation">Erro ao buscar cotação id:</string>
+    <string name="unknown_error">Erro desconhecido.</string>
+    <string name="please_insert_email">Por favor, digite o email.</string>
+    <string name="login_error">Erro ao fazer login</string>
+    <string name="user_or_pw_wrong">Usuário e/ou senha errada!</string>
+    <string name="error_find_user">Erro ao buscar usuário.</string>
+    <string name="wrong_email">Email enviado. Por favor, verifique sua caixa de entreda.</string>
+    <string name="error_reset_pw">Erro ao tentar enviar email de recuperação de senha!</string>
+    <string name="fill_genre">Selecione o genero</string>
+    <string name="fill_civil_state">Selecione o estado civíl</string>
+    <string name="fill_vehicle_brand">Selecione a marca do veículo</string>
+    <string name="fill_all_fields">Preencha todos os campos obrigatórios</string>
+    <string name="invalid_cpf">CPF inválido</string>
+    <string name="quote_save_error">Erro ao tentar Salvar</string>
+    <string name="cpf_format_error">Erro no formato do CPF</string>
+    <string name="proposal">Proposta</string>
+    <string name="proposal_received_msg">Olá, gostaria de receber mais informações sobre a proposta</string>
+    <string name="thankyou">Obrigado</string>
+    <string name="email_client_open_error">Erro ao tentar abrir cliente de email:</string>
+    <string name="successfully_completed">Finalizado com sucesso.</string>
+    <string name="sync_error">Erro ao tentar sincronizar!</string>
 </resources>

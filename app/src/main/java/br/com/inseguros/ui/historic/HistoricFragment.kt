@@ -95,7 +95,8 @@ class HistoricFragment : BaseFragment() {
 
     fun editQuote(item: QuoteVehicle) {
 
-        val bundle = bundleOf("quote_vehicle" to item, "main_sub_menu" to MainSubMenu(title = "Editar ${item.vehicleModel} ${item.vehicleModelYear}"))
+        val bundle = bundleOf("quote_vehicle" to item, "main_sub_menu" to
+                MainSubMenu(title = "${getString(R.string.edit)}  ${item.vehicleModel} ${item.vehicleModelYear}"))
         navController.navigate(R.id.action_historicFragment_to_quoteGenericScreenFragment, bundle)
 
     }
@@ -103,7 +104,7 @@ class HistoricFragment : BaseFragment() {
     fun cancelQuote(item: QuoteVehicle) {
 
         DialogFragmentUtil(
-            "Deseja cancelar a quotação ${item.vehicleType} ${item.vehicleModel} ${item.vehicleModelYear}",
+            "${getString(R.string.cancel_quotation_msg)} ${item.vehicleType} ${item.vehicleModel} ${item.vehicleModelYear}",
             {
                 item.apply {
                     this.quoteStatus = QuoteTypeEnum.CANCELED.value
@@ -117,7 +118,7 @@ class HistoricFragment : BaseFragment() {
 
     private fun confirmUserIntent(position: Int) {
 
-        DialogFragmentUtil("Deseja excluir o item?",
+        DialogFragmentUtil(getString(R.string.remove_item),
             { adapter.removeAt(position) },
             { adapter.notifyDataSetChanged() }
         ).show(parentFragmentManager, "remove_item_dialog")

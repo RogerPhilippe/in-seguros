@@ -30,7 +30,7 @@ object QuotationProposalNotification {
             mContent = content
             createNotificationChannel()
         } catch (ex: Exception) {
-            Log.e("QuoteNotification", ex.message ?: "Erro desconhecido.")
+            Log.e("QuoteNotification", ex.message ?: mContext.getString(R.string.unknown_error))
         }
     }
 

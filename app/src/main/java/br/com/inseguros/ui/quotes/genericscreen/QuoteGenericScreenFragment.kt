@@ -151,15 +151,15 @@ class QuoteGenericScreenFragment : BaseFragment() {
         val civilState = getCivilStateSelected()
         val vehicleBrand = binding.vehicleBrandGenericSpn.selectedItem?.toString()
         if (genreChar.isEmpty()) {
-            "Selecione o genero".makeErrorShortToast(requireContext())
+            getString(R.string.fill_genre).makeErrorShortToast(requireContext())
         } else if (civilState.isEmpty()) {
-            "Selecione o estado civíl".makeErrorShortToast(requireContext())
+            getString(R.string.fill_civil_state).makeErrorShortToast(requireContext())
         } else if (vehicleBrand.isNullOrEmpty()) {
-            "Selecione a marca do veículo".makeErrorShortToast(requireContext())
+            getString(R.string.fill_vehicle_brand).makeErrorShortToast(requireContext())
         } else if (!validateFields()) {
-            "Preencha todos os campos obrigatórios".makeErrorShortToast(requireContext())
+            getString(R.string.fill_all_fields).makeErrorShortToast(requireContext())
         } else if (!validateCPF()) {
-            "CPF inválido".makeErrorShortToast(requireContext())
+            getString(R.string.invalid_cpf).makeErrorShortToast(requireContext())
         } else {
 
             mViewModel.getCurrentQuoteVehicleLiveData().value.apply {
@@ -261,7 +261,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
                         EventBus.getDefault().post(RefreshHistoricListEvent())
                     popBackStack()
                 } else {
-                    "Erro ao tentar Salvar".makeErrorShortToast(requireContext())
+                    getString(R.string.quote_save_error).makeErrorShortToast(requireContext())
                     showContent(true)
                 }
             }
@@ -325,7 +325,7 @@ class QuoteGenericScreenFragment : BaseFragment() {
         if (binding.cpfGenericMet.text?.isEmpty() == true &&
             !Validador.CPF.ehValido(binding.cpfGenericMet.text.toString())) {
 
-            binding.cpfGenericMet.error = "Erro no formato do CPF"
+            binding.cpfGenericMet.error = getString(R.string.cpf_format_error)
             status = false
         }
 

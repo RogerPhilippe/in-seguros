@@ -72,9 +72,9 @@ class SettingsActivity : AppCompatActivity() {
             mViewModel.getCurrentSyncStatus().observe(viewLifecycleOwner, object : Observer<SaveStatusEnum> {
                 override fun onChanged(status: SaveStatusEnum) {
                     if (status == SaveStatusEnum.SUCCESS) {
-                        "Finalizado com sucesso.".makeShortToast(requireContext())
+                        getString(R.string.successfully_completed).makeShortToast(requireContext())
                     } else {
-                        "Erro ao tentar sincronizar!".makeShortToast(requireContext())
+                        getString(R.string.sync_error).makeShortToast(requireContext())
                     }
                     parent.setContentVisible(true)
                     mViewModel.getCurrentSyncStatus().removeObserver(this)

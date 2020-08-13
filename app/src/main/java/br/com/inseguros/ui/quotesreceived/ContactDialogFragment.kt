@@ -75,9 +75,9 @@ class ContactDialogFragment(private val quotationProposal: QuotationProposal) : 
 
         companyDetailsEmailBtn.setOnClickListener {
             val recipient = quotationProposal.contactEmail
-            val subject = "Proposta ${quotationProposal.vehicleModelNameAndFacYear}"
-            val message = "Olá, gostaria de receber mais informações sobre a proposta " +
-                    "${quotationProposal.vehicleModelNameAndFacYear}. Obrigado."
+            val subject = "${getString(R.string.proposal)} ${quotationProposal.vehicleModelNameAndFacYear}"
+            val message = "${getString(R.string.proposal_received_msg)} " +
+                    "${quotationProposal.vehicleModelNameAndFacYear}.${getString(R.string.thankyou)}."
             val emailIntent = Intent(Intent.ACTION_SEND)
             emailIntent.data = Uri.parse("mailto:")
             emailIntent.type = "text/plain"
@@ -88,7 +88,7 @@ class ContactDialogFragment(private val quotationProposal: QuotationProposal) : 
                 startActivity(Intent.createChooser(emailIntent, "Choose Email Client..."))
             }
             catch (e: Exception){
-                "Erro ao tentar abrir cliente de email: ${e.message}"
+                "${getString(R.string.email_client_open_error)} ${e.message}"
             }
         }
 

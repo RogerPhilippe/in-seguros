@@ -75,7 +75,7 @@ class LoginFragment : BaseFragment() {
         binding.forgotTvBtn.setOnClickListener {
 
             if (binding.userLoginMet.text.toString().isEmpty())
-                "Por favor, digite o email.".makeShortToast(requireContext())
+                getString(R.string.please_insert_email).makeShortToast(requireContext())
             else
                 mViewModel.forgotPassword(binding.userLoginMet.text.toString())
         }
@@ -90,7 +90,7 @@ class LoginFragment : BaseFragment() {
                     navController.navigate(R.id.action_loginFragment_to_navigation_home)
                     mViewModel.getCurrentUserAuthLiveData().removeObserver(this)
                 } else {
-                    "Erro ao fazer login".makeErrorShortToast(mContext)
+                    getString(R.string.login_error).makeErrorShortToast(mContext)
                     setupContainersView(true)
                 }
             }

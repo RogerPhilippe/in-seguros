@@ -23,7 +23,7 @@ class HistoricAdapter(
         with(items[position]) {
 
             holder.bindDateQuote(convertDateToString(Date(this.quoteDate)))
-            holder.bindDescription("Cotação ${this.vehicleType}")
+            holder.bindDescription("${parent.getString(R.string.quotation)} ${this.vehicleType}")
             holder.bindVehicleQuoteModel("${this.vehicleModel} ${this.vehicleModelYear}")
             holder.bindVehicleRegisterNum(this.vehicleRegisterNum)
             val quoteStatus = when(this.quoteStatus) {
