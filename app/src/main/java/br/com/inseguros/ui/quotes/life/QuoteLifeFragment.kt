@@ -27,4 +27,9 @@ class QuoteLifeFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        trackEvent("quote_life_fragment", "onResume")
+    }
+
 }

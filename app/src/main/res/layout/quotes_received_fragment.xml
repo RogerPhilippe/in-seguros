@@ -25,6 +25,16 @@
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:titleTextColor="@android:color/white" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/quotes_received_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/quotes_received_toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -15,7 +15,7 @@ object RemoteConfigUtils {
         val remoteConfig = Firebase.remoteConfig
         val configSettings = remoteConfigSettings { minimumFetchIntervalInSeconds = 3600 }
 
-        remoteConfig.setDefaultsAsync(R.xml.default_config_main_menu)
+        remoteConfig.setDefaultsAsync(R.xml.default_config_values)
         remoteConfig.setConfigSettingsAsync(configSettings)
         val cacheExpiration = if (BuildConfig.DEBUG) 0L else 720L
         remoteConfig.fetch(cacheExpiration)

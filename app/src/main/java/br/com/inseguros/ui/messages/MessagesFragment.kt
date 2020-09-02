@@ -11,7 +11,7 @@ import br.com.inseguros.ui.BaseFragment
 class MessagesFragment : BaseFragment() {
 
     private lateinit var binding: MessagesFragmentBinding
-    private val viewModel: MessagesViewModel by viewModels()
+    private val mViewModel: MessagesViewModel by viewModels()
     override val layout = R.layout.messages_fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,6 +26,11 @@ class MessagesFragment : BaseFragment() {
             NavHostFragment.findNavController(this).popBackStack()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        trackEvent("message_fragment", "onResume")
     }
 
 }

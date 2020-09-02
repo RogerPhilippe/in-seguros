@@ -15,6 +15,88 @@
       },
       "oauth_client": [
         {
+          "client_id": "976530230383-4ae3ssde2j9h9f7k38jj0h9eb7mj977n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.inseguros",
+            "certificate_hash": "4782ea452f07c323adc16e6fbdc0886aa473af79"
+          }
+        },
+        {
+          "client_id": "976530230383-7k2j52me2ok5f6u52ut13otntd3h25ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9dTyly8J9zlZ_tyAS39xiAQSwXWoWy2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976530230383-7k2j52me2ok5f6u52ut13otntd3h25ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976530230383:android:d18c46d45a5f92dd4d519a",
+        "android_client_info": {
+          "package_name": "br.com.inseguros.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976530230383-qj856c4o1hjqfick3o5v206dat7gtaoi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.inseguros.dev",
+            "certificate_hash": "4782ea452f07c323adc16e6fbdc0886aa473af79"
+          }
+        },
+        {
+          "client_id": "976530230383-7k2j52me2ok5f6u52ut13otntd3h25ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9dTyly8J9zlZ_tyAS39xiAQSwXWoWy2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976530230383-7k2j52me2ok5f6u52ut13otntd3h25ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976530230383:android:44989f9c50baab594d519a",
+        "android_client_info": {
+          "package_name": "br.com.inseguros.qa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976530230383-eb1o0eme7ar58sf3vu998t8bujeb7qut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.inseguros.qa",
+            "certificate_hash": "4782ea452f07c323adc16e6fbdc0886aa473af79"
+          }
+        },
+        {
           "client_id": "976530230383-7k2j52me2ok5f6u52ut13otntd3h25ad.apps.googleusercontent.com",
           "client_type": 3
         }

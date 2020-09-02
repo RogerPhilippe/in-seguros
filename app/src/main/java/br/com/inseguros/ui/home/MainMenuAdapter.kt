@@ -5,9 +5,8 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
+import br.com.in_seguros_utils.makeShortToast
 import br.com.inseguros.R
 import br.com.inseguros.data.model.MainMenu
 import kotlinx.android.synthetic.main.main_menu_item.view.*
@@ -31,7 +30,7 @@ class MainMenuAdapter(
             holder.itemView.setOnClickListener {
                 when(this.id) {
                     "main_menu_id_item_1" -> parent.navControllerNavigateTo(
-                        R.id.action_navigation_home_to_quote_navigation, this.description
+                        R.id.action_navigation_home_to_quoteFragment, this.description
                     )
                     "main_menu_id_item_2" -> parent.navControllerNavigateTo(
                         R.id.action_navigation_home_to_historicFragment, this.description
@@ -39,9 +38,12 @@ class MainMenuAdapter(
                     "main_menu_id_item_3" -> parent.navControllerNavigateTo(
                         R.id.action_navigation_home_to_quotesReceivedFragment, this.description
                     )
-                    "main_menu_id_item_4" -> parent.navControllerNavigateTo(
-                        R.id.action_navigation_home_to_messagesFragment, this.description
-                    )
+                    "main_menu_id_item_4" -> {
+                        parent.getString(R.string.not_implemented_in_alpha_yet).makeShortToast(parent.requireContext())
+                        /**
+                         * parent.navControllerNavigateTo(R.id.action_navigation_home_to_messagesFragment, this.description)
+                         */
+                    }
                 }
             }
 

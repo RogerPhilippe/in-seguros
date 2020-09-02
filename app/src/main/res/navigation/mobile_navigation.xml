@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/loginFragment">
 
     <fragment
         android:id="@+id/navigation_home"
@@ -20,15 +20,19 @@
             android:id="@+id/action_navigation_home_to_messagesFragment"
             app:destination="@id/messagesFragment" />
         <action
-            android:id="@+id/action_navigation_home_to_quote_navigation"
-            app:destination="@id/quote_navigation" />
+            android:id="@+id/action_navigation_home_to_quoteFragment"
+            app:destination="@id/quoteFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/historicFragment"
         android:name="br.com.inseguros.ui.historic.HistoricFragment"
         android:label="historic_fragment"
-        tools:layout="@layout/historic_fragment" />
+        tools:layout="@layout/historic_fragment" >
+        <action
+            android:id="@+id/action_historicFragment_to_quoteGenericScreenFragment"
+            app:destination="@id/quoteGenericScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/quotesReceivedFragment"
         android:name="br.com.inseguros.ui.quotesreceived.QuotesReceivedFragment"
@@ -39,5 +43,63 @@
         android:name="br.com.inseguros.ui.messages.MessagesFragment"
         android:label="messages_fragment"
         tools:layout="@layout/messages_fragment" />
-    <include app:graph="@navigation/quote_navigation" />
+    <fragment
+        android:id="@+id/quoteFragment"
+        android:name="br.com.inseguros.ui.quotes.QuoteFragment"
+        android:label="quote_fragment"
+        tools:layout="@layout/quote_fragment" >
+        <action
+            android:id="@+id/action_quoteFragment_to_quoteGenericScreenFragment"
+            app:destination="@id/quoteGenericScreenFragment" />
+        <action
+            android:id="@+id/action_quoteFragment_to_quoteHouseFragment"
+            app:destination="@id/quoteHouseFragment" />
+        <action
+            android:id="@+id/action_quoteFragment_to_quoteLifeFragment"
+            app:destination="@id/quoteLifeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quoteGenericScreenFragment"
+        android:name="br.com.inseguros.ui.quotes.genericscreen.QuoteGenericScreenFragment"
+        android:label="quote_generic_screen_fragment"
+        tools:layout="@layout/quote_generic_screen_fragment" />
+    <fragment
+        android:id="@+id/quoteHouseFragment"
+        android:name="br.com.inseguros.ui.quotes.house.QuoteHouseFragment"
+        android:label="QuoteHouseFragment"
+        tools:layout="@layout/quote_house_fragment"/>
+    <fragment
+        android:id="@+id/quoteLifeFragment"
+        android:name="br.com.inseguros.ui.quotes.life.QuoteLifeFragment"
+        android:label="QuoteLifeFragment"
+        tools:layout="@layout/quote_house_fragment"/>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="br.com.inseguros.ui.login.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="br.com.inseguros.ui.signup.SignUpFragment"
+        android:label="sign_up_fragment"
+        tools:layout="@layout/sign_up_fragment" >
+        <action
+            android:id="@+id/action_signUpFragment_to_useTermFragment"
+            app:destination="@id/useTermFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/useTermFragment"
+        android:name="br.com.inseguros.ui.useterm.UseTermFragment"
+        android:label="use_term_fragment"
+        tools:layout="@layout/use_term_fragment" />
 </navigation>

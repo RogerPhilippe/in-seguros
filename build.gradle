@@ -4,15 +4,20 @@ buildscript {
         kotlin_version = '1.3.72'
         roomVersion = '2.2.5'
         coroutines = '1.3.2'
+        koin_version = "2.1.5"
     }
     repositories {
         google()
         jcenter()
+        maven {
+            url 'http://maven.fabric.io/public'
+        }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.0"
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'io.fabric.tools:gradle:1.31.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -23,9 +28,24 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        maven {
+            url 'https://s3.amazonaws.com/fabric-artifacts-private/internal-snapshots'
+        }
+        maven {
+            url 'https://maven.fabric.io/public'
+        }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    apkNamePrefix = "IN_SEGUROS"
+    versionNamePrefix = "1.0.0"
+    releaseDate = new Date().format('yyyyMMddHHmm')
+    versionName = versionNamePrefix + "." + releaseDate
+    apkName = apkNamePrefix + "_" + versionName
 }

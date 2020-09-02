@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import br.com.inseguros.R
-import br.com.inseguros.data.model.AppSession
+import br.com.inseguros.data.sessions.AppSession
 import br.com.inseguros.data.model.MainSubMenu
 import br.com.inseguros.databinding.QuoteFragmentBinding
 import br.com.inseguros.ui.BaseFragment
@@ -28,7 +28,6 @@ class QuoteFragment : BaseFragment() {
         binding.quoteToolbar.title = toolBarTitle
 
         val items = AppSession.getMainSubMenuItems()
-
         val adapter = QuoteAdapter(items, this)
         binding.qutesRV.adapter = adapter
 
@@ -36,6 +35,11 @@ class QuoteFragment : BaseFragment() {
             NavHostFragment.findNavController(this).popBackStack()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        trackEvent("quote_fragment", "onResume")
     }
 
     fun navControllerNavigateTo(id: Int, mainSubMenu: MainSubMenu) {
